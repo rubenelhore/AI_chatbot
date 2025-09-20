@@ -1,0 +1,916 @@
+/* DISEÑO MODERNO Y ELEGANTE - FORZAR ESTILOS */
+
+* {
+  box-sizing: border-box !important;
+}
+
+html {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  height: 100% !important;
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+}
+
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #e0e7ff 75%, #f3f4f6 100%) !important;
+  min-height: 100vh !important;
+  position: relative !important;
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+}
+
+/* Forzar el contenedor principal */
+#root, [id="root"] {
+  min-height: 100vh !important;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #e0e7ff 75%, #f3f4f6 100%) !important;
+  position: relative !important;
+  overflow-y: visible !important;
+  overflow-x: hidden !important;
+}
+
+/* FORZAR SCROLL EN TODOS LOS CONTENEDORES */
+div[style*="min-height: 100vh"],
+div[style*="overflow: hidden"],
+div[class*="min-h-screen"] {
+  overflow-y: scroll !important;
+  overflow-x: hidden !important;
+}
+
+/* Contenedores principales */
+main, [class*="main"], [class*="container"] {
+  overflow-y: visible !important;
+  overflow-x: hidden !important;
+}
+
+/* Grids y flex containers */
+div[class*="grid"], div[class*="flex"] {
+  overflow-y: visible !important;
+  overflow-x: hidden !important;
+}
+
+/* Chat containers específicos */
+div[class*="chat"], div[class*="h-full"] {
+  overflow-y: visible !important;
+  overflow-x: hidden !important;
+}
+
+/* Contenedores flex específicos del upload */
+div[class*="flex-1"], div[class*="min-h-0"] {
+  overflow: visible !important;
+}
+
+/* Contenedores con altura específica */
+div[style*="height: 100%"] {
+  overflow: visible !important;
+}
+
+/* Contenedores de motion/framer */
+div[style*="opacity: 1; transform: none"] {
+  overflow: visible !important;
+}
+
+/* ANULAR COMPLETAMENTE SCROLL EN UPLOAD - TAILWIND OVERRIDE */
+.flex-1.min-h-0,
+div[class="flex-1 min-h-0"],
+div[class*="flex-1"][class*="min-h-0"] {
+  overflow: visible !important;
+  max-height: none !important;
+  height: auto !important;
+  min-height: auto !important;
+}
+
+/* Anular todas las clases de Tailwind que causan scroll */
+.h-full {
+  overflow: visible !important;
+  max-height: none !important;
+  height: auto !important;
+}
+
+.flex-1 {
+  overflow: visible !important;
+  max-height: none !important;
+}
+
+.min-h-0 {
+  overflow: visible !important;
+  min-height: auto !important;
+}
+
+/* Forzar scroll en altura específica */
+div[style*="calc(100vh"] {
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+}
+
+/* Sobrescribir cualquier estilo del contenedor principal */
+div[style*="background: linear-gradient(135deg, rgb(59, 130, 246)"] {
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #e0e7ff 75%, #f3f4f6 100%) !important;
+}
+
+/* Efectos de fondo decorativos */
+body::before {
+  content: '' !important;
+  position: fixed !important;
+  top: -50% !important;
+  left: -50% !important;
+  width: 200% !important;
+  height: 200% !important;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 40% 60%, rgba(217, 70, 239, 0.05) 0%, transparent 50%) !important;
+  z-index: -1 !important;
+  animation: float 20s ease-in-out infinite !important;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  33% { transform: translateY(-20px) rotate(2deg); }
+  66% { transform: translateY(10px) rotate(-1deg); }
+}
+
+/* Header súper elegante y moderno - FORZAR */
+header, header[class*="relative"], div[style*="backdrop-blur-xl"] {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.3) !important;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.05),
+    0 20px 25px -5px rgba(0, 0, 0, 0.08),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+  padding: 24px 40px !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 50 !important;
+  transition: all 0.3s ease !important;
+}
+
+/* Forzar header específico */
+div.relative.z-20.bg-white\/90.backdrop-blur-xl.border-b.border-gray-200.shadow-lg {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(24px) !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.3) !important;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.05),
+    0 20px 25px -5px rgba(0, 0, 0, 0.08),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+}
+
+header:hover {
+  background: rgba(255, 255, 255, 0.95) !important;
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.07),
+    0 25px 50px -12px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Contenedor del header */
+header > div {
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+  padding: 0 32px !important;
+}
+
+/* Flex container principal */
+header .flex {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: 88px !important;
+}
+
+/* Logo elegante */
+.logo-circle {
+  width: 56px !important;
+  height: 56px !important;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%) !important;
+  border-radius: 18px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 10px 25px rgba(99, 102, 241, 0.25), 0 4px 6px rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.3s ease !important;
+}
+
+.logo-circle:hover {
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow: 0 20px 40px rgba(99, 102, 241, 0.35), 0 8px 12px rgba(0, 0, 0, 0.1) !important;
+}
+
+/* Título elegante y centrado */
+.main-title {
+  font-size: 32px !important;
+  font-weight: 800 !important;
+  background: linear-gradient(135deg, #1e40af 0%, #6366f1 30%, #8b5cf6 70%, #d946ef 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  margin: 0 !important;
+  letter-spacing: -0.025em !important;
+  line-height: 1.1 !important;
+  text-align: center !important;
+  display: block !important;
+  width: 100% !important;
+}
+
+.subtitle {
+  color: #64748b !important;
+  font-size: 15px !important;
+  font-weight: 500 !important;
+  margin-top: 6px !important;
+  letter-spacing: -0.01em !important;
+  text-align: center !important;
+  display: block !important;
+  width: 100% !important;
+}
+
+/* Contenedor principal */
+.main-container {
+  padding: 32px 24px !important;
+  max-width: 1280px !important;
+  margin: 0 auto !important;
+}
+
+/* Cards elegantes con efectos glassmorphism mejorados */
+.color-card {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border-radius: 24px !important;
+  padding: 32px !important;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.05),
+    0 20px 25px -5px rgba(0, 0, 0, 0.08),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+  border: 1px solid rgba(226, 232, 240, 0.4) !important;
+  margin-bottom: 24px !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative !important;
+  overflow: visible !important;
+}
+
+.color-card::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 1px !important;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(99, 102, 241, 0.4) 20%,
+    rgba(139, 92, 246, 0.4) 50%,
+    rgba(217, 70, 239, 0.4) 80%,
+    transparent 100%) !important;
+}
+
+.color-card:hover {
+  transform: translateY(-6px) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.07),
+    0 25px 50px -12px rgba(99, 102, 241, 0.15),
+    0 10px 20px -5px rgba(139, 92, 246, 0.1) !important;
+  border-color: rgba(99, 102, 241, 0.3) !important;
+}
+
+.upload-card {
+  background: linear-gradient(135deg,
+    rgba(248, 250, 252, 0.95) 0%,
+    rgba(240, 245, 251, 0.95) 25%,
+    rgba(224, 231, 255, 0.95) 75%,
+    rgba(238, 242, 255, 0.95) 100%) !important;
+  border: 2px solid rgba(99, 102, 241, 0.2) !important;
+  border-radius: 24px !important;
+  padding: 32px !important;
+  margin-bottom: 24px !important;
+  position: relative !important;
+  overflow: visible !important;
+}
+
+.upload-card::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 4px !important;
+  background: linear-gradient(90deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%) !important;
+}
+
+.upload-title {
+  font-size: 24px !important;
+  font-weight: 700 !important;
+  background: linear-gradient(135deg, #1e40af 0%, #6366f1 50%, #8b5cf6 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  margin-bottom: 20px !important;
+  letter-spacing: -0.02em !important;
+}
+
+/* Botones del header elegantes */
+.color-button, button {
+  background: rgba(255, 255, 255, 0.8) !important;
+  color: #4b5563 !important;
+  border: 1px solid rgba(226, 232, 240, 0.5) !important;
+  border-radius: 12px !important;
+  padding: 10px 12px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  backdrop-filter: blur(12px) !important;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 4px 8px rgba(0, 0, 0, 0.04) !important;
+}
+
+.color-button:hover, button:hover {
+  transform: translateY(-1px) scale(1.02) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  border-color: rgba(99, 102, 241, 0.3) !important;
+  box-shadow:
+    0 4px 6px rgba(0, 0, 0, 0.07),
+    0 8px 20px rgba(99, 102, 241, 0.15) !important;
+}
+
+/* Status badges modernos y elegantes */
+.status-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  padding: 8px 16px !important;
+  border-radius: 20px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
+  transition: all 0.3s ease !important;
+}
+
+.status-ready {
+  background: linear-gradient(135deg, rgba(220, 252, 231, 0.9) 0%, rgba(187, 247, 208, 0.9) 100%) !important;
+  color: #166534 !important;
+  border-color: rgba(34, 197, 94, 0.3) !important;
+}
+
+.status-processing {
+  background: linear-gradient(135deg, rgba(219, 234, 254, 0.9) 0%, rgba(191, 219, 254, 0.9) 100%) !important;
+  color: #1e40af !important;
+  border-color: rgba(59, 130, 246, 0.3) !important;
+}
+
+.status-error {
+  background: linear-gradient(135deg, rgba(254, 226, 226, 0.9) 0%, rgba(252, 165, 165, 0.9) 100%) !important;
+  color: #991b1b !important;
+  border-color: rgba(239, 68, 68, 0.3) !important;
+}
+
+.status-badge:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
+}
+
+/* Contenedor de status en header */
+.header-status-container {
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  background: rgba(255, 255, 255, 0.6) !important;
+  backdrop-filter: blur(20px) !important;
+  border-radius: 24px !important;
+  padding: 8px 20px !important;
+  border: 1px solid rgba(226, 232, 240, 0.4) !important;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.05),
+    0 2px 4px rgba(0, 0, 0, 0.03) !important;
+}
+
+/* Punto de estado animado */
+.pulse-dot {
+  width: 8px !important;
+  height: 8px !important;
+  background: #22c55e !important;
+  border-radius: 50% !important;
+  animation: statusPulse 2s infinite !important;
+}
+
+@keyframes statusPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.1);
+    box-shadow: 0 0 0 4px rgba(34, 197, 94, 0);
+  }
+}
+
+/* Chat area ultra elegante */
+.chat-container {
+  min-height: 600px !important;
+  position: relative !important;
+  overflow: visible !important;
+}
+
+.chat-container::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 3px !important;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    #6366f1 25%,
+    #8b5cf6 50%,
+    #d946ef 75%,
+    transparent 100%) !important;
+  border-radius: 24px 24px 0 0 !important;
+  animation: shimmer 3s ease-in-out infinite !important;
+}
+
+@keyframes shimmer {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.chat-header {
+  background: linear-gradient(135deg,
+    rgba(248, 250, 252, 0.95) 0%,
+    rgba(240, 245, 251, 0.95) 25%,
+    rgba(224, 231, 255, 0.95) 75%,
+    rgba(238, 242, 255, 0.95) 100%) !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.6) !important;
+  padding: 28px 32px !important;
+  border-radius: 24px 24px 0 0 !important;
+  margin: -32px -32px 24px -32px !important;
+  backdrop-filter: blur(20px) !important;
+  position: relative !important;
+}
+
+.chat-header::after {
+  content: '' !important;
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 32px !important;
+  right: 32px !important;
+  height: 1px !important;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(99, 102, 241, 0.3) 20%,
+    rgba(139, 92, 246, 0.3) 50%,
+    rgba(217, 70, 239, 0.3) 80%,
+    transparent 100%) !important;
+}
+
+/* Asegurar que los iconos se vean */
+svg {
+  display: inline-block !important;
+}
+
+/* Texto colorido y mejorado */
+.text-colorful {
+  color: #1f2937 !important;
+  font-weight: 500 !important;
+}
+
+.text-blue {
+  color: #3b82f6 !important;
+  font-weight: 600 !important;
+}
+
+.text-purple {
+  color: #8b5cf6 !important;
+  font-weight: 600 !important;
+}
+
+.text-green {
+  color: #059669 !important;
+  font-weight: 600 !important;
+}
+
+.text-red {
+  color: #dc2626 !important;
+  font-weight: 600 !important;
+}
+
+/* Efectos de hover universales */
+.hover-lift {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px) !important;
+}
+
+/* Inputs y formularios elegantes */
+input, textarea, select {
+  background: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(226, 232, 240, 0.6) !important;
+  border-radius: 12px !important;
+  padding: 12px 16px !important;
+  font-size: 14px !important;
+  transition: all 0.3s ease !important;
+}
+
+input:focus, textarea:focus, select:focus {
+  outline: none !important;
+  border-color: rgba(99, 102, 241, 0.5) !important;
+  box-shadow:
+    0 0 0 3px rgba(99, 102, 241, 0.1),
+    0 4px 12px rgba(99, 102, 241, 0.15) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+}
+
+/* Guía rápida y cards informativos elegantes */
+.bg-blue-50,
+div[class*="bg-blue-50"] {
+  background: linear-gradient(135deg,
+    rgba(240, 245, 251, 0.95) 0%,
+    rgba(224, 231, 255, 0.95) 50%,
+    rgba(238, 242, 255, 0.95) 100%) !important;
+  border: 1px solid rgba(59, 130, 246, 0.2) !important;
+  border-radius: 20px !important;
+  padding: 24px !important;
+  margin-top: 20px !important;
+  backdrop-filter: blur(16px) !important;
+  box-shadow:
+    0 4px 12px rgba(59, 130, 246, 0.08),
+    0 2px 6px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.bg-blue-50:hover,
+div[class*="bg-blue-50"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow:
+    0 8px 25px rgba(59, 130, 246, 0.12),
+    0 4px 12px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important;
+}
+
+.bg-blue-50::before,
+div[class*="bg-blue-50"]::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 2px !important;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(59, 130, 246, 0.6) 20%,
+    rgba(99, 102, 241, 0.6) 50%,
+    rgba(139, 92, 246, 0.6) 80%,
+    transparent 100%) !important;
+  border-radius: 20px 20px 0 0 !important;
+}
+
+/* Título de la guía elegante */
+.text-blue-800,
+h4[class*="text-blue-800"] {
+  color: #1e40af !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  margin-bottom: 16px !important;
+  display: flex !important;
+  align-items: center !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* Punto indicador mejorado */
+.bg-blue-500,
+span[class*="bg-blue-500"] {
+  background: linear-gradient(135deg, #3b82f6 0%, #6366f1 100%) !important;
+  width: 8px !important;
+  height: 8px !important;
+  border-radius: 50% !important;
+  margin-right: 12px !important;
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.3) !important;
+  flex-shrink: 0 !important;
+  animation: pulse 2s infinite !important;
+}
+
+/* Lista mejorada */
+ul[class*="text-blue-700"] {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+
+ul[class*="text-blue-700"] li {
+  display: flex !important;
+  align-items: flex-start !important;
+  padding: 8px 12px !important;
+  background: rgba(255, 255, 255, 0.4) !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(59, 130, 246, 0.1) !important;
+  transition: all 0.2s ease !important;
+  backdrop-filter: blur(8px) !important;
+}
+
+ul[class*="text-blue-700"] li:hover {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border-color: rgba(59, 130, 246, 0.2) !important;
+  transform: translateX(4px) !important;
+}
+
+ul[class*="text-blue-700"] li span:not([class*="bg-blue-500"]) {
+  color: #1e40af !important;
+  font-weight: 500 !important;
+  line-height: 1.5 !important;
+  font-size: 14px !important;
+}
+
+/* Bullet points elegantes */
+.text-blue-500 {
+  color: #3b82f6 !important;
+  font-weight: 800 !important;
+  font-size: 16px !important;
+  margin-right: 8px !important;
+  line-height: 1 !important;
+}
+
+/* Scrollbars elegantes */
+::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(241, 245, 249, 0.8) !important;
+  border-radius: 4px !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%) !important;
+  border-radius: 4px !important;
+  transition: all 0.3s ease !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%) !important;
+}
+
+/* Sección Mis Documentos Elegante */
+.bg-white\/90.backdrop-blur-sm.rounded-2xl,
+div[class*="bg-white/90"][class*="backdrop-blur-sm"] {
+  background: rgba(255, 255, 255, 0.85) !important;
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+  border: 1px solid rgba(226, 232, 240, 0.4) !important;
+  border-radius: 24px !important;
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.06),
+    0 20px 25px -5px rgba(0, 0, 0, 0.08),
+    0 1px 3px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: relative !important;
+  overflow: visible !important;
+}
+
+.bg-white\/90.backdrop-blur-sm.rounded-2xl::before,
+div[class*="bg-white/90"][class*="backdrop-blur-sm"]::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 2px !important;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    rgba(107, 114, 128, 0.4) 20%,
+    rgba(59, 130, 246, 0.4) 50%,
+    rgba(99, 102, 241, 0.4) 80%,
+    transparent 100%) !important;
+  border-radius: 24px 24px 0 0 !important;
+}
+
+.bg-white\/90.backdrop-blur-sm.rounded-2xl:hover,
+div[class*="bg-white/90"][class*="backdrop-blur-sm"]:hover {
+  transform: translateY(-6px) !important;
+  background: rgba(255, 255, 255, 0.95) !important;
+  box-shadow:
+    0 8px 25px rgba(0, 0, 0, 0.08),
+    0 25px 50px -12px rgba(107, 114, 128, 0.15),
+    0 4px 6px rgba(0, 0, 0, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+  border-color: rgba(107, 114, 128, 0.3) !important;
+}
+
+/* Header de Mis Documentos */
+div[class*="flex items-center justify-between mb-6"] h2[class*="text-xl"] {
+  color: #1f2937 !important;
+  font-size: 22px !important;
+  font-weight: 800 !important;
+  background: linear-gradient(135deg, #374151 0%, #4b5563 50%, #6b7280 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  letter-spacing: -0.02em !important;
+  margin: 0 !important;
+}
+
+/* Icono de archivo elegante */
+div[class*="bg-gradient-to-r from-gray-500 to-blue-500"] {
+  background: linear-gradient(135deg, #6b7280 0%, #4f46e5 50%, #3b82f6 100%) !important;
+  border-radius: 16px !important;
+  width: 40px !important;
+  height: 40px !important;
+  box-shadow:
+    0 4px 12px rgba(75, 85, 99, 0.25),
+    0 2px 6px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.3s ease !important;
+}
+
+div[class*="bg-gradient-to-r from-gray-500 to-blue-500"]:hover {
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow:
+    0 8px 20px rgba(75, 85, 99, 0.35),
+    0 4px 12px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* Estado vacío elegante */
+div[class*="text-center py-12"] {
+  padding: 48px 24px !important;
+  position: relative !important;
+}
+
+div[class*="text-center py-12"]::before {
+  content: '' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: 300px !important;
+  height: 300px !important;
+  background: radial-gradient(circle,
+    rgba(156, 163, 175, 0.03) 0%,
+    rgba(59, 130, 246, 0.05) 50%,
+    transparent 70%) !important;
+  border-radius: 50% !important;
+  z-index: 0 !important;
+}
+
+/* Icono de estado vacío */
+div[class*="bg-gray-100 rounded-2xl"] {
+  background: linear-gradient(135deg,
+    rgba(249, 250, 251, 0.9) 0%,
+    rgba(243, 244, 246, 0.9) 50%,
+    rgba(229, 231, 235, 0.9) 100%) !important;
+  border: 2px solid rgba(156, 163, 175, 0.2) !important;
+  border-radius: 20px !important;
+  width: 80px !important;
+  height: 80px !important;
+  margin: 0 auto 24px auto !important;
+  box-shadow:
+    0 4px 12px rgba(156, 163, 175, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+  transition: all 0.3s ease !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+div[class*="bg-gray-100 rounded-2xl"]:hover {
+  transform: translateY(-4px) scale(1.05) !important;
+  box-shadow:
+    0 8px 25px rgba(156, 163, 175, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Texto del estado vacío */
+div[class*="text-center py-12"] p:first-of-type {
+  color: #374151 !important;
+  font-size: 20px !important;
+  font-weight: 700 !important;
+  margin-bottom: 8px !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+div[class*="text-center py-12"] p:last-of-type {
+  color: #6b7280 !important;
+  font-size: 16px !important;
+  font-weight: 500 !important;
+  line-height: 1.6 !important;
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Efecto de background blur decorativo */
+div[class*="absolute inset-0 bg-gradient-to-r from-gray-400/20 to-blue-400/20"] {
+  background: radial-gradient(circle,
+    rgba(156, 163, 175, 0.15) 0%,
+    rgba(59, 130, 246, 0.15) 50%,
+    rgba(99, 102, 241, 0.1) 100%) !important;
+  filter: blur(20px) !important;
+  animation: float 6s ease-in-out infinite !important;
+}
+
+/* Área de upload más grande y espaciosa */
+div[role="presentation"][class*="border-2 border-dashed"] {
+  min-height: 320px !important;
+  padding: 48px 32px !important;
+  border-radius: 24px !important;
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: rgba(249, 250, 251, 0.8) !important;
+  backdrop-filter: blur(12px) !important;
+  border: 2px dashed rgba(156, 163, 175, 0.4) !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  overflow: visible !important;
+}
+
+div[role="presentation"][class*="border-2 border-dashed"]:hover {
+  min-height: 320px !important;
+  background: rgba(239, 246, 255, 0.9) !important;
+  border-color: rgba(59, 130, 246, 0.5) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.15) !important;
+}
+
+/* Icono de upload más grande y centrado */
+div[class*="relative p-4 rounded-2xl"] {
+  padding: 20px !important;
+  border-radius: 20px !important;
+  background: linear-gradient(135deg,
+    rgba(249, 250, 251, 0.9) 0%,
+    rgba(243, 244, 246, 0.9) 50%,
+    rgba(229, 231, 235, 0.9) 100%) !important;
+  border: 2px solid rgba(156, 163, 175, 0.2) !important;
+  box-shadow:
+    0 4px 12px rgba(156, 163, 175, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+  transition: all 0.3s ease !important;
+  margin-bottom: 24px !important;
+}
+
+div[class*="relative p-4 rounded-2xl"]:hover {
+  background: linear-gradient(135deg,
+    rgba(239, 246, 255, 0.9) 0%,
+    rgba(219, 234, 254, 0.9) 50%,
+    rgba(191, 219, 254, 0.9) 100%) !important;
+  border-color: rgba(59, 130, 246, 0.3) !important;
+  transform: translateY(-2px) scale(1.05) !important;
+  box-shadow:
+    0 8px 25px rgba(59, 130, 246, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9) !important;
+}
+
+/* Icono SVG más grande */
+svg[class*="lucide-upload"] {
+  width: 56px !important;
+  height: 56px !important;
+  color: #6b7280 !important;
+  transition: all 0.3s ease !important;
+}
+
+svg[class*="lucide-upload"]:hover {
+  color: #3b82f6 !important;
+  transform: scale(1.1) !important;
+}
+
+/* Contenedor del icono con mejor espaciado */
+div[class*="flex flex-col items-center space-y-4"] {
+  gap: 24px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+}
+
+/* Texto mejorado */
+div[class*="text-center"] p:first-of-type {
+  font-size: 18px !important;
+  font-weight: 600 !important;
+  color: #374151 !important;
+  margin-bottom: 8px !important;
+}
+
+div[class*="text-center"] p:last-of-type {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: #6b7280 !important;
+  line-height: 1.5 !important;
+}
