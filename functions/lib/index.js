@@ -22,17 +22,18 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteDocument = exports.chatQuery = exports.processDocument = void 0;
+exports.deleteDocument = exports.testFunction = exports.chatQuery = exports.processDocument = void 0;
 const functions = __importStar(require("firebase-functions"));
 const admin = __importStar(require("firebase-admin"));
 const pinecone_1 = require("@pinecone-database/pinecone");
 const generative_ai_1 = require("@google/generative-ai");
 const textProcessor_1 = require("./utils/textProcessor");
 admin.initializeApp();
-const PINECONE_API_KEY = process.env.PINECONE_API_KEY || '';
-const PINECONE_INDEX_NAME = process.env.PINECONE_INDEX_NAME || 'document-chatbot';
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
+const PINECONE_API_KEY = ((_a = functions.config().pinecone) === null || _a === void 0 ? void 0 : _a.api_key) || '';
+const PINECONE_INDEX_NAME = ((_b = functions.config().pinecone) === null || _b === void 0 ? void 0 : _b.index_name) || 'document-chatbot';
+const GEMINI_API_KEY = ((_c = functions.config().gemini) === null || _c === void 0 ? void 0 : _c.api_key) || '';
 const pinecone = new pinecone_1.Pinecone({
     apiKey: PINECONE_API_KEY,
 });
@@ -42,13 +43,20 @@ exports.processDocument = functions
     timeoutSeconds: 540,
     memory: '2GB',
 })
-    .https.onCall(async (data) => {
+    .https.onCall(async (data, context) => {
+    console.log('processDocument function started with data:', JSON.stringify(data, null, 2));
+    console.log('Auth context:', JSON.stringify(context.auth, null, 2));
+    console.log('Environment check:', {
+        hasPineconeKey: !!PINECONE_API_KEY,
+        hasGeminiKey: !!GEMINI_API_KEY,
+        pineconeIndex: PINECONE_INDEX_NAME,
+    });
     try {
         const { documentId, filePath, fileName } = data;
         if (!documentId || !filePath) {
             throw new functions.https.HttpsError('invalid-argument', 'Document ID and file path are required');
         }
-        console.log(`Processing document: ${documentId}`);
+        console.log(`Processing document: ${documentId} from path: ${filePath}`);
         const bucket = admin.storage().bucket();
         const file = bucket.file(filePath);
         const [fileBuffer] = await file.download();
@@ -117,7 +125,8 @@ exports.chatQuery = functions
     timeoutSeconds: 60,
     memory: '1GB',
 })
-    .https.onCall(async (data) => {
+    .https.onCall(async (data, context) => {
+    var _a;
     try {
         const { query, documentIds } = data;
         if (!query || !documentIds || documentIds.length === 0) {
@@ -150,7 +159,8 @@ exports.chatQuery = functions
         })
             .filter((text) => text.length > 0)
             .join('\n\n---\n\n');
-        const chatModel = genAI.getGenerativeModel({ model: 'gemini-pro' });
+        // Updated to use the latest Gemini model
+        const chatModel = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
         const prompt = `
 Eres un asistente experto que responde preguntas basándote únicamente en el contexto proporcionado.
 
@@ -183,7 +193,7 @@ Respuesta:`;
                 });
             }),
             timestamp: admin.firestore.FieldValue.serverTimestamp(),
-            userId: data.userId,
+            userId: ((_a = context.auth) === null || _a === void 0 ? void 0 : _a.uid) || 'anonymous',
             conversationId: data.conversationId,
         });
         return {
@@ -207,6 +217,11 @@ Respuesta:`;
         }
         throw new functions.https.HttpsError('internal', 'Error processing chat query');
     }
+});
+exports.testFunction = functions.https.onCall(async (data, context) => {
+    console.log('Test function called with data:', JSON.stringify(data));
+    console.log('Auth context:', JSON.stringify(context.auth));
+    return { message: 'Test function works!', timestamp: new Date().toISOString() };
 });
 exports.deleteDocument = functions.https.onCall(async (data) => {
     try {

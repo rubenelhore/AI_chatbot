@@ -5,7 +5,7 @@ import { Button } from '../ui/Button'
 export const Header: React.FC = () => {
   return (
     <header>
-      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '80px', position: 'relative'}}>
+      <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '50px', position: 'relative'}}>
         {/* Lado izquierdo - Status badges */}
         <div className="hidden lg:flex items-center">
           <div className="header-status-container">
@@ -31,15 +31,15 @@ export const Header: React.FC = () => {
           alignItems: 'center',
           gap: '16px'
         }}>
-          <div className="logo-circle">
-            <Brain style={{width: '28px', height: '28px', color: 'white'}} />
+          <div className="logo-circle" style={{width: '36px', height: '36px'}}>
+            <Brain style={{width: '20px', height: '20px', color: 'white'}} />
           </div>
 
           <div style={{textAlign: 'left'}}>
-            <h1 className="main-title">
+            <h1 className="main-title" style={{fontSize: '18px', marginBottom: '2px'}}>
               AI Document Chat
             </h1>
-            <p className="subtitle">
+            <p className="subtitle" style={{fontSize: '12px'}}>
               Chatea con tus documentos usando IA avanzada
             </p>
           </div>

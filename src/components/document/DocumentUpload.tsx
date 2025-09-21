@@ -49,7 +49,7 @@ export const DocumentUpload: React.FC = () => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="color-card upload-card" style={{height: '100%', display: 'flex', flexDirection: 'column'}}>
+      <div className="color-card upload-card" style={{height: '100%', display: 'flex', flexDirection: 'column', paddingBottom: '32px'}}>
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <h2 className="upload-title">
@@ -61,7 +61,7 @@ export const DocumentUpload: React.FC = () => {
         <div
           {...getRootProps()}
           className={`
-            relative border-2 border-dashed rounded-2xl p-8 text-center cursor-pointer
+            relative border-2 border-dashed rounded-2xl px-4 py-4 text-center cursor-pointer
             transition-all duration-300 flex-1 flex flex-col items-center justify-center
             hover-lift interactive
             ${isDragActive
@@ -74,46 +74,39 @@ export const DocumentUpload: React.FC = () => {
         >
           <input {...getInputProps()} />
 
-          {/* Background pattern */}
-          <div className="absolute inset-0 opacity-10">
-            <div className="absolute top-4 right-4 w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-400 rounded-full blur-xl"></div>
-            <div className="absolute bottom-4 left-4 w-20 h-20 bg-gradient-to-tl from-cyan-400 to-blue-400 rounded-full blur-xl"></div>
-          </div>
-
           <div className="relative z-10">
             {isUploading ? (
-              <div className="flex flex-col items-center space-y-4">
+              <div className="flex flex-col items-center space-y-2">
                 <div className="relative">
-                  <div className="w-16 h-16 border-4 border-blue-200 rounded-full animate-spin border-t-blue-600"></div>
+                  <div className="w-12 h-12 border-3 border-blue-200 rounded-full animate-spin border-t-blue-600"></div>
                 </div>
                 <div className="text-center">
-                  <p className="text-gray-700 font-semibold text-lg">Subiendo y procesando documento...</p>
-                  <p className="text-sm text-gray-500 mt-2">Esto puede tomar unos momentos</p>
+                  <p className="text-gray-700 font-medium text-sm">Subiendo...</p>
                 </div>
               </div>
             ) : (
-              <div className="flex flex-col items-center space-y-4">
+              <div className="flex flex-col items-center space-y-2">
                 <div className={`
-                  relative p-4 rounded-2xl transition-all duration-300
+                  relative p-3 rounded-xl transition-all duration-300
                   ${isDragActive
                     ? 'bg-blue-100 shadow-lg scale-110'
                     : 'bg-gray-100 hover:bg-blue-50'
                   }
                 `}>
                   <Upload className={`
-                    w-12 h-12 transition-colors duration-300
+                    w-8 h-8 transition-colors duration-300
                     ${isDragActive ? 'text-blue-600' : 'text-gray-500'}
                   `} />
                 </div>
                 <div className="text-center">
-                  <p className="text-gray-700 font-semibold text-lg">
+                  <p className="text-gray-700 font-medium text-sm">
                     {isDragActive
-                      ? 'Suelta los archivos aquí...'
-                      : 'Arrastra archivos aquí o haz click'
+                      ? 'Suelta archivos aquí'
+                      : 'Arrastra archivos o haz click'
                     }
                   </p>
-                  <p className="text-sm text-gray-500 mt-2">
-                    PDF, DOCX, TXT (máx. 10MB cada uno)
+                  <p className="text-xs text-gray-500 mt-1">
+                    PDF, DOCX, TXT (máx. 10MB)
                   </p>
                 </div>
               </div>

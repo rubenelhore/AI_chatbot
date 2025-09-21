@@ -103,12 +103,28 @@ export const ChatInput: React.FC = () => {
   };
 
   return (
-    <div className="border-t border-gray-200 bg-white rounded-b-xl">
+    <div style={{
+      borderTop: '1px solid rgba(229, 231, 235, 0.5)',
+      background: 'rgba(255, 255, 255, 0.9)',
+      borderRadius: '16px',
+      backdropFilter: 'blur(12px)',
+      border: '1px solid rgba(0, 0, 0, 0.05)',
+      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.05)'
+    }}>
       {/* Suggestions */}
       {hasSelectedDocuments && !isLoading && (
-        <div className="px-4 py-3 border-b border-gray-100">
-          <div className="flex flex-wrap gap-2">
-            <span className="text-xs text-gray-500 self-center mr-2">Sugerencias:</span>
+        <div style={{
+          padding: '16px 24px 12px 24px',
+          borderBottom: '1px solid rgba(243, 244, 246, 0.8)'
+        }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+            <span style={{
+              fontSize: '12px',
+              color: '#6b7280',
+              alignSelf: 'center',
+              marginRight: '8px',
+              fontWeight: '500'
+            }}>Sugerencias:</span>
             {[
               "Resume los puntos principales",
               "¿Cuáles son las conclusiones?",
@@ -118,7 +134,30 @@ export const ChatInput: React.FC = () => {
               <button
                 key={suggestion}
                 onClick={() => setInput(suggestion)}
-                className="text-xs px-2 py-1 bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200 transition-colors"
+                style={{
+                  fontSize: '12px',
+                  padding: '6px 12px',
+                  background: 'linear-gradient(135deg, rgba(243, 244, 246, 0.8) 0%, rgba(229, 231, 235, 0.8) 100%)',
+                  color: '#4b5563',
+                  borderRadius: '100px',
+                  border: '1px solid rgba(209, 213, 219, 0.5)',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  backdropFilter: 'blur(8px)',
+                  fontWeight: '500'
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(219, 234, 254, 0.8) 0%, rgba(191, 219, 254, 0.8) 100%)';
+                  e.currentTarget.style.color = '#1e40af';
+                  e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.3)';
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(243, 244, 246, 0.8) 0%, rgba(229, 231, 235, 0.8) 100%)';
+                  e.currentTarget.style.color = '#4b5563';
+                  e.currentTarget.style.borderColor = 'rgba(209, 213, 219, 0.5)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                }}
               >
                 {suggestion}
               </button>
@@ -128,10 +167,10 @@ export const ChatInput: React.FC = () => {
       )}
 
       {/* Input Area */}
-      <div className="p-4">
-        <form onSubmit={handleSubmit} className="flex items-end space-x-3">
+      <div style={{ padding: '20px 24px' }}>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', alignItems: 'flex-end', gap: '12px' }}>
           {/* Text Input */}
-          <div className="flex-1 relative">
+          <div style={{ flex: 1, position: 'relative' }}>
             <textarea
               ref={textareaRef}
               value={input}
@@ -140,13 +179,33 @@ export const ChatInput: React.FC = () => {
               placeholder={getPlaceholder()}
               disabled={isLoading || !hasSelectedDocuments}
               rows={1}
-              className="
-                w-full px-4 py-3 pr-12 border border-gray-300 rounded-xl resize-none
-                focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent
-                disabled:bg-gray-50 disabled:text-gray-500 disabled:cursor-not-allowed
-                transition-all duration-200
-              "
-              style={{ minHeight: '48px', maxHeight: '120px' }}
+              style={{
+                width: '100%',
+                padding: '16px 48px 16px 16px',
+                border: '1px solid rgba(209, 213, 219, 0.6)',
+                borderRadius: '12px',
+                resize: 'none',
+                outline: 'none',
+                background: 'rgba(255, 255, 255, 0.8)',
+                backdropFilter: 'blur(8px)',
+                fontSize: '14px',
+                fontFamily: 'Inter, system-ui, sans-serif',
+                transition: 'all 0.2s ease',
+                minHeight: '48px',
+                maxHeight: '120px',
+                color: isLoading || !hasSelectedDocuments ? '#9ca3af' : '#1f2937',
+                cursor: isLoading || !hasSelectedDocuments ? 'not-allowed' : 'text'
+              }}
+              onFocus={(e) => {
+                if (!isLoading && hasSelectedDocuments) {
+                  e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.5)';
+                  e.currentTarget.style.boxShadow = '0 0 0 3px rgba(59, 130, 246, 0.1)';
+                }
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(209, 213, 219, 0.6)';
+                e.currentTarget.style.boxShadow = 'none';
+              }}
             />
 
             {/* Voice Input Button */}
@@ -155,60 +214,150 @@ export const ChatInput: React.FC = () => {
                 type="button"
                 onClick={toggleListening}
                 disabled={isLoading || !hasSelectedDocuments}
-                className="
-                  absolute right-3 top-1/2 transform -translate-y-1/2
-                  p-1.5 text-gray-400 hover:text-gray-600 disabled:opacity-50
-                  transition-colors
-                "
+                style={{
+                  position: 'absolute',
+                  right: '12px',
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  padding: '6px',
+                  background: 'none',
+                  border: 'none',
+                  cursor: isLoading || !hasSelectedDocuments ? 'not-allowed' : 'pointer',
+                  color: isListening ? '#ef4444' : '#9ca3af',
+                  opacity: isLoading || !hasSelectedDocuments ? 0.5 : 1,
+                  transition: 'all 0.2s ease',
+                  borderRadius: '6px'
+                }}
+                onMouseEnter={(e) => {
+                  if (!isLoading && hasSelectedDocuments) {
+                    e.currentTarget.style.color = isListening ? '#dc2626' : '#6b7280';
+                    e.currentTarget.style.background = 'rgba(243, 244, 246, 0.5)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.color = isListening ? '#ef4444' : '#9ca3af';
+                  e.currentTarget.style.background = 'none';
+                }}
               >
                 {isListening ? (
-                  <MicOff className="w-4 h-4 text-red-500" />
+                  <MicOff style={{ width: '16px', height: '16px' }} />
                 ) : (
-                  <Mic className="w-4 h-4" />
+                  <Mic style={{ width: '16px', height: '16px' }} />
                 )}
               </button>
             )}
           </div>
 
           {/* Action Buttons */}
-          <div className="flex items-center space-x-2">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             {/* Clear Chat Button */}
-            <Button
+            <button
               type="button"
-              variant="ghost"
-              size="sm"
               onClick={clearMessages}
               disabled={isLoading}
-              className="p-2"
               title="Limpiar chat"
+              style={{
+                padding: '12px',
+                background: 'rgba(255, 255, 255, 0.8)',
+                border: '1px solid rgba(209, 213, 219, 0.5)',
+                borderRadius: '12px',
+                cursor: isLoading ? 'not-allowed' : 'pointer',
+                color: '#6b7280',
+                transition: 'all 0.2s ease',
+                backdropFilter: 'blur(8px)',
+                opacity: isLoading ? 0.5 : 1
+              }}
+              onMouseEnter={(e) => {
+                if (!isLoading) {
+                  e.currentTarget.style.background = 'rgba(243, 244, 246, 0.9)';
+                  e.currentTarget.style.color = '#374151';
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
+                e.currentTarget.style.color = '#6b7280';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
             >
-              <RotateCcw className="w-4 h-4" />
-            </Button>
+              <RotateCcw style={{ width: '16px', height: '16px' }} />
+            </button>
 
             {/* Send Button */}
-            <Button
+            <button
               type="submit"
-              variant="primary"
               disabled={!canSend}
-              isLoading={isLoading}
-              className="px-4 py-3 rounded-xl"
+              style={{
+                padding: '12px 16px',
+                background: canSend
+                  ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                  : 'rgba(156, 163, 175, 0.5)',
+                border: 'none',
+                borderRadius: '12px',
+                cursor: canSend ? 'pointer' : 'not-allowed',
+                color: 'white',
+                transition: 'all 0.2s ease',
+                boxShadow: canSend ? '0 4px 12px rgba(102, 126, 234, 0.3)' : 'none',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                minWidth: '48px'
+              }}
+              onMouseEnter={(e) => {
+                if (canSend) {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%)';
+                  e.currentTarget.style.transform = 'translateY(-1px)';
+                  e.currentTarget.style.boxShadow = '0 6px 16px rgba(102, 126, 234, 0.4)';
+                }
+              }}
+              onMouseLeave={(e) => {
+                if (canSend) {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+                  e.currentTarget.style.transform = 'translateY(0)';
+                  e.currentTarget.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.3)';
+                }
+              }}
             >
-              <Send className="w-4 h-4" />
-            </Button>
+              {isLoading ? (
+                <div style={{
+                  width: '16px',
+                  height: '16px',
+                  border: '2px solid rgba(255, 255, 255, 0.3)',
+                  borderTop: '2px solid white',
+                  borderRadius: '50%',
+                  animation: 'spin 1s linear infinite'
+                }}></div>
+              ) : (
+                <Send style={{ width: '16px', height: '16px' }} />
+              )}
+            </button>
           </div>
         </form>
 
         {/* Status Messages */}
-        <div className="mt-2 flex items-center justify-between text-xs text-gray-500">
-          <div className="flex items-center space-x-4">
+        <div style={{
+          marginTop: '12px',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          fontSize: '12px',
+          color: '#6b7280'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
             {hasSelectedDocuments && (
-              <span>
+              <span style={{ fontWeight: '500' }}>
                 {selectedDocuments.length} documento{selectedDocuments.length !== 1 ? 's' : ''} seleccionado{selectedDocuments.length !== 1 ? 's' : ''}
               </span>
             )}
             {isListening && (
               <motion.span
-                className="text-red-500 font-medium"
+                style={{
+                  color: '#ef4444',
+                  fontWeight: '600',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px'
+                }}
                 animate={{ opacity: [1, 0.5, 1] }}
                 transition={{ duration: 1, repeat: Infinity }}
               >
@@ -216,8 +365,8 @@ export const ChatInput: React.FC = () => {
               </motion.span>
             )}
           </div>
-          <div className="text-right">
-            <span>Presiona Enter para enviar, Shift+Enter para nueva línea</span>
+          <div style={{ textAlign: 'right' }}>
+            <span style={{ fontWeight: '400' }}>Presiona Enter para enviar, Shift+Enter para nueva línea</span>
           </div>
         </div>
       </div>

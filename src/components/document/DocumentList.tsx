@@ -3,16 +3,13 @@ import { motion, AnimatePresence } from 'framer-motion';
 import {
   File,
   FileText,
-  Trash2,
   Clock,
   CheckCircle,
   AlertCircle,
-  Loader2,
-  Download
+  Loader2
 } from 'lucide-react';
 import { useDocuments, Document } from '../../hooks/useDocuments';
 import { formatFileSize } from '../../services/documentProcessor';
-import { Button } from '../ui/Button';
 
 const getFileIcon = (type: string) => {
   if (type.includes('pdf')) return <File className="h-5 w-5 text-red-500" />;
@@ -65,11 +62,9 @@ const getStatusColor = (status: Document['status']) => {
 
 interface DocumentItemProps {
   document: Document;
-  onDelete: (id: string) => void;
-  isDeleting: boolean;
 }
 
-const DocumentItem: React.FC<DocumentItemProps> = React.memo(({ document, onDelete, isDeleting }) => {
+const DocumentItem: React.FC<DocumentItemProps> = React.memo(({ document }) => {
   const formatDate = (timestamp: any) => {
     if (!timestamp) return '';
 
@@ -89,43 +84,150 @@ const DocumentItem: React.FC<DocumentItemProps> = React.memo(({ document, onDele
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      className="group relative bg-white/90 backdrop-blur-sm border border-gray-200 rounded-xl p-4 hover:bg-white hover:shadow-lg transition-all duration-300 hover-lift"
+      style={{
+        position: 'relative',
+        overflow: 'hidden',
+        borderRadius: '16px',
+        background: 'linear-gradient(145deg, #ffffff 0%, #f9fafb 100%)',
+        padding: '16px',
+        boxShadow: '0 8px 24px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.03)',
+        border: '1px solid rgba(0, 0, 0, 0.05)',
+        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+        cursor: 'pointer',
+        height: '140px',
+        minHeight: '140px',
+        maxHeight: '140px',
+        width: '100%',
+        minWidth: '0',
+        maxWidth: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        boxSizing: 'border-box'
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.12), 0 0 40px rgba(59, 130, 246, 0.08)';
+        e.currentTarget.style.transform = 'translateY(-2px)';
+        e.currentTarget.style.borderColor = 'rgba(147, 197, 253, 0.3)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04)';
+        e.currentTarget.style.transform = 'translateY(0)';
+        e.currentTarget.style.borderColor = 'rgba(0, 0, 0, 0.05)';
+      }}
     >
-      {/* Fondo decorativo sutil */}
-      <div className="absolute inset-0 bg-gradient-to-r from-blue-50/30 via-transparent to-purple-50/30 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+      {/* Línea superior decorativa */}
+      <div style={{
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        height: '3px',
+        background: 'linear-gradient(90deg, #8b5cf6 0%, #ec4899 25%, #ef4444 50%, #f59e0b 75%, #10b981 100%)',
+        opacity: 0.8
+      }}></div>
 
-      <div className="relative flex items-start justify-between">
-        <div className="flex items-start space-x-3 flex-1">
-          <div className="flex-shrink-0 mt-1 p-2 bg-white/80 rounded-lg shadow-sm group-hover:shadow-md transition-shadow">
-            {getFileIcon(document.type)}
+      <div style={{ position: 'relative', display: 'flex', alignItems: 'start', justifyContent: 'space-between' }}>
+        <div style={{ display: 'flex', alignItems: 'start', gap: '12px', flex: 1 }}>
+          <div style={{ position: 'relative', flexShrink: 0 }}>
+            <div style={{
+              position: 'absolute',
+              inset: '-3px',
+              background: 'linear-gradient(135deg, #a78bfa 0%, #f9a8d4 100%)',
+              borderRadius: '12px',
+              filter: 'blur(6px)',
+              opacity: 0.4
+            }}></div>
+            <div style={{
+              position: 'relative',
+              padding: '8px',
+              background: 'white',
+              borderRadius: '12px',
+              border: '1px solid rgba(0, 0, 0, 0.05)',
+              transition: 'transform 0.3s ease',
+              transform: 'scale(1)'
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05) rotate(3deg)'}
+            onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1) rotate(0deg)'}
+            >
+              {getFileIcon(document.type)}
+            </div>
           </div>
 
-          <div className="flex-1 min-w-0">
-            <h3 className="text-sm font-semibold text-gray-900 truncate group-hover:text-blue-700 transition-colors">
+          <div style={{ flex: 1, minWidth: 0, overflow: 'hidden' }}>
+            <h3 style={{
+              fontSize: '14px',
+              fontWeight: '800',
+              background: 'linear-gradient(135deg, #1f2937 0%, #4b5563 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              overflow: 'hidden',
+              textOverflow: 'ellipsis',
+              whiteSpace: 'nowrap',
+              transition: 'all 0.3s ease',
+              marginBottom: '2px',
+              lineHeight: '1.2'
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = 'linear-gradient(135deg, #7c3aed 0%, #ec4899 50%, #3b82f6 100%)';
+              e.currentTarget.style.WebkitBackgroundClip = 'text';
+              e.currentTarget.style.WebkitTextFillColor = 'transparent';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = 'linear-gradient(135deg, #1f2937 0%, #4b5563 100%)';
+              e.currentTarget.style.WebkitBackgroundClip = 'text';
+              e.currentTarget.style.WebkitTextFillColor = 'transparent';
+            }}
+            >
               {document.name}
             </h3>
 
-            <div className="mt-2 flex items-center space-x-3 text-xs text-gray-500">
-              <span className="bg-gray-100 px-2 py-1 rounded-full">
-                {formatFileSize(document.size)}
+            <div style={{ marginTop: '8px', display: 'flex', flexWrap: 'wrap', gap: '4px' }}>
+              <span style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                padding: '4px 8px',
+                borderRadius: '100px',
+                fontSize: '10px',
+                fontWeight: '700',
+                background: 'linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%)',
+                color: '#374151',
+                border: '1px solid rgba(0, 0, 0, 0.08)',
+                boxShadow: '0 1px 2px rgba(0, 0, 0, 0.05)'
+              }}>
+                💾 {formatFileSize(document.size)}
               </span>
-              <span>{formatDate(document.uploadedAt)}</span>
+              <span style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                padding: '4px 8px',
+                borderRadius: '100px',
+                fontSize: '10px',
+                fontWeight: '700',
+                background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)',
+                color: '#1e40af',
+                border: '1px solid rgba(59, 130, 246, 0.2)',
+                boxShadow: '0 1px 2px rgba(59, 130, 246, 0.1)'
+              }}>
+                🕐 {formatDate(document.uploadedAt)}
+              </span>
               {document.chunkCount && (
-                <span className="bg-blue-100 text-blue-600 px-2 py-1 rounded-full">
-                  {document.chunkCount} chunks
+                <span style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  padding: '4px 8px',
+                  borderRadius: '100px',
+                  fontSize: '10px',
+                  fontWeight: '700',
+                  background: 'linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%)',
+                  color: '#6b21a8',
+                  border: '1px solid rgba(147, 51, 234, 0.2)',
+                  boxShadow: '0 1px 2px rgba(147, 51, 234, 0.1)'
+                }}>
+                  📦 {document.chunkCount} chunks
                 </span>
               )}
             </div>
 
-            <div className="mt-3 flex items-center space-x-2">
-              <div className={`
-                inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold border
-                ${getStatusColor(document.status)}
-              `}>
-                {getStatusIcon(document.status)}
-                <span className="ml-2">{getStatusText(document.status)}</span>
-              </div>
-            </div>
 
             {document.error && (
               <motion.div
@@ -144,32 +246,6 @@ const DocumentItem: React.FC<DocumentItemProps> = React.memo(({ document, onDele
           </div>
         </div>
 
-        <div className="flex items-center space-x-2 ml-4 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
-          {document.url && document.status === 'ready' && (
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => window.open(document.url, '_blank')}
-              className="p-2 hover-lift bg-white/80 hover:bg-blue-50 border border-gray-200 hover:border-blue-200"
-            >
-              <Download className="h-4 w-4 text-blue-600" />
-            </Button>
-          )}
-
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => onDelete(document.id)}
-            disabled={isDeleting}
-            className="p-2 hover-lift bg-white/80 hover:bg-red-50 border border-gray-200 hover:border-red-200 text-red-600 hover:text-red-700"
-          >
-            {isDeleting ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <Trash2 className="h-4 w-4" />
-            )}
-          </Button>
-        </div>
       </div>
     </motion.div>
   );
@@ -179,13 +255,19 @@ export const DocumentList: React.FC = () => {
   const {
     documents,
     isLoading,
-    deleteDocument,
-    isDeleting,
-    totalDocuments,
-    readyDocuments,
-    processingDocuments,
-    errorDocuments
+    totalDocuments
   } = useDocuments();
+
+  const [isSmallScreen, setIsSmallScreen] = React.useState(window.innerWidth < 1200);
+
+  React.useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 1200);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   if (isLoading) {
     return (
@@ -204,98 +286,152 @@ export const DocumentList: React.FC = () => {
 
   return (
     <motion.div
-      className="bg-white/90 backdrop-blur-sm rounded-2xl border border-gray-200 shadow-sm h-full flex flex-col p-6 hover-lift"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
+      style={{
+        background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+        borderRadius: '24px',
+        border: '1px solid rgba(0, 0, 0, 0.08)',
+        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.08), 0 0 40px rgba(59, 130, 246, 0.05)',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '32px',
+        backdropFilter: 'blur(20px)'
+      }}
     >
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
-        <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-gradient-to-r from-gray-500 to-blue-500 rounded-lg flex items-center justify-center shadow-md">
-            <File className="w-5 h-5 text-white" />
-          </div>
-          <h2 className="text-xl font-bold text-gray-800 text-shadow">
-            Mis Documentos
-          </h2>
-        </div>
+      <div style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginBottom: '24px',
+        borderBottom: '2px solid',
+        borderImage: 'linear-gradient(90deg, #ec4899, #8b5cf6, #3b82f6) 1',
+        paddingBottom: '20px'
+      }}>
+        <h2 style={{
+          fontSize: '24px',
+          fontWeight: '700',
+          background: 'linear-gradient(135deg, #1e40af 0%, #6366f1 50%, #8b5cf6 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+          letterSpacing: '-0.02em',
+          marginBottom: '20px',
+          overflow: 'visible',
+          maxHeight: 'none',
+          height: 'auto',
+          whiteSpace: 'nowrap',
+          textOverflow: 'visible',
+          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+        }}>
+          Mis Documentos
+        </h2>
         {totalDocuments > 0 && (
-          <div className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200">
+          <div style={{
+            background: 'linear-gradient(135deg, #fce7f3 0%, #ddd6fe 100%)',
+            padding: '8px 20px',
+            borderRadius: '100px',
+            fontSize: '14px',
+            fontWeight: '700',
+            color: '#7c3aed',
+            border: '2px solid rgba(124, 58, 237, 0.2)',
+            boxShadow: '0 4px 12px rgba(124, 58, 237, 0.15)'
+          }}>
             {totalDocuments} {totalDocuments === 1 ? 'doc' : 'docs'}
           </div>
         )}
       </div>
 
-      {/* Stats Cards */}
-      {totalDocuments > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4 }}
-          className="grid grid-cols-3 gap-3 mb-6"
-        >
-          <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-green-500 rounded-xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
-            <div className="relative text-center p-4 bg-green-50 border border-green-200 rounded-xl hover:shadow-md transition-all duration-200">
-              <div className="text-2xl font-bold text-green-700">{readyDocuments}</div>
-              <div className="text-xs font-medium text-green-600 mt-1">Listos</div>
-            </div>
-          </div>
-
-          <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-blue-500 rounded-xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
-            <div className="relative text-center p-4 bg-blue-50 border border-blue-200 rounded-xl hover:shadow-md transition-all duration-200">
-              <div className="text-2xl font-bold text-blue-700">{processingDocuments}</div>
-              <div className="text-xs font-medium text-blue-600 mt-1">Procesando</div>
-            </div>
-          </div>
-
-          <div className="relative group">
-            <div className="absolute inset-0 bg-gradient-to-r from-red-400 to-red-500 rounded-xl blur opacity-20 group-hover:opacity-30 transition-opacity"></div>
-            <div className="relative text-center p-4 bg-red-50 border border-red-200 rounded-xl hover:shadow-md transition-all duration-200">
-              <div className="text-2xl font-bold text-red-700">{errorDocuments}</div>
-              <div className="text-xs font-medium text-red-600 mt-1">Errores</div>
-            </div>
-          </div>
-        </motion.div>
-      )}
 
       {/* Document List */}
-      <div className="flex-1 overflow-y-auto">
+      <div style={{
+        flex: 1,
+        overflow: 'visible',
+        padding: '4px',
+        marginTop: '8px'
+      }}>
         {documents.length === 0 ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6 }}
-            className="text-center py-12"
+            style={{
+              textAlign: 'center',
+              paddingTop: '60px',
+              paddingBottom: '60px'
+            }}
           >
-            <div className="relative inline-block">
-              <div className="absolute inset-0 bg-gradient-to-r from-gray-400/20 to-blue-400/20 rounded-full blur-xl"></div>
-              <div className="relative w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mb-4 mx-auto">
-                <File className="h-8 w-8 text-gray-400" />
+            <div style={{ position: 'relative', display: 'inline-block' }}>
+              <div style={{
+                position: 'absolute',
+                inset: '-20px',
+                background: 'radial-gradient(circle, rgba(147, 197, 253, 0.3) 0%, transparent 70%)',
+                borderRadius: '50%',
+                filter: 'blur(20px)'
+              }}></div>
+              <div style={{
+                position: 'relative',
+                width: '100px',
+                height: '100px',
+                background: 'linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%)',
+                borderRadius: '24px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0 auto 24px',
+                boxShadow: '0 10px 30px rgba(0, 0, 0, 0.15)',
+                border: '2px solid rgba(255, 255, 255, 0.8)'
+              }}>
+                <File style={{ width: '48px', height: '48px', color: '#6b7280' }} />
               </div>
             </div>
-            <p className="text-gray-700 font-semibold text-lg">No hay documentos</p>
-            <p className="text-sm text-gray-500 mt-2">
-              Sube algunos archivos para empezar a chatear
+            <p style={{
+              fontSize: '22px',
+              fontWeight: '800',
+              color: '#1f2937',
+              marginBottom: '12px'
+            }}>No hay documentos</p>
+            <p style={{
+              fontSize: '16px',
+              color: '#6b7280',
+              fontWeight: '500'
+            }}>
+              Sube algunos archivos para empezar a chatear 💬
             </p>
           </motion.div>
         ) : (
-          <div className="space-y-3">
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: isSmallScreen ? '1fr' : 'repeat(2, 1fr)',
+            gap: '16px',
+            width: '100%',
+            boxSizing: 'border-box'
+          }}>
             <AnimatePresence mode="popLayout">
               {documents.map((document, index) => (
                 <motion.div
                   key={document.id}
                   layout
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ delay: index * 0.05 }}
+                  initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: -10, scale: 0.95 }}
+                  transition={{
+                    delay: index * 0.05,
+                    duration: 0.3,
+                    type: "spring",
+                    stiffness: 200
+                  }}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    boxSizing: 'border-box'
+                  }}
                 >
                   <DocumentItem
                     document={document}
-                    onDelete={deleteDocument}
-                    isDeleting={isDeleting}
                   />
                 </motion.div>
               ))}

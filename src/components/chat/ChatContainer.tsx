@@ -45,47 +45,135 @@ export const ChatContainer: React.FC = () => {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="flex flex-col items-center justify-center h-full text-center px-8 py-12"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100%',
+        textAlign: 'center',
+        padding: '48px 32px'
+      }}
     >
       {readyDocuments.length === 0 ? (
         <>
-          <div className="relative mb-8">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full blur-xl opacity-30 animate-pulse"></div>
-            <div className="relative w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-500 rounded-3xl flex items-center justify-center shadow-xl">
-              <MessageSquare className="w-12 h-12 text-white" />
+          <div style={{ position: 'relative', marginBottom: '32px' }}>
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, rgba(147, 51, 234, 0.3) 100%)',
+              borderRadius: '50%',
+              filter: 'blur(40px)',
+              opacity: 0.3
+            }}></div>
+            <div style={{
+              position: 'relative',
+              width: '96px',
+              height: '96px',
+              background: 'linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%)',
+              borderRadius: '24px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 20px 40px rgba(59, 130, 246, 0.3)'
+            }}>
+              <MessageSquare style={{ width: '48px', height: '48px', color: 'white' }} />
             </div>
           </div>
-          <h3 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4 text-shadow">
+          <h3 style={{
+            fontSize: '32px',
+            fontWeight: '700',
+            background: 'linear-gradient(135deg, #1e40af 0%, #8b5cf6 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            marginBottom: '16px',
+            textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+          }}>
             ¡Bienvenido al Chat de Documentos!
           </h3>
-          <p className="text-gray-600 mb-8 max-w-lg text-lg leading-relaxed">
+          <p style={{
+            color: '#6b7280',
+            marginBottom: '32px',
+            maxWidth: '512px',
+            fontSize: '18px',
+            lineHeight: '1.7',
+            fontWeight: '500'
+          }}>
             Sube algunos documentos en el panel izquierdo para empezar a hacer preguntas inteligentes sobre su contenido usando IA avanzada.
           </p>
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="bg-blue-50/80 backdrop-blur-sm border border-blue-200/50 rounded-2xl p-6 max-w-md"
+            style={{
+              background: 'linear-gradient(135deg, rgba(219, 234, 254, 0.8) 0%, rgba(191, 219, 254, 0.8) 100%)',
+              backdropFilter: 'blur(12px)',
+              border: '1px solid rgba(59, 130, 246, 0.3)',
+              borderRadius: '16px',
+              padding: '24px',
+              maxWidth: '448px'
+            }}
           >
-            <h4 className="font-bold text-blue-800 mb-4 flex items-center">
-              <Sparkles className="w-5 h-5 mr-2" />
+            <h4 style={{
+              fontWeight: '700',
+              color: '#1e40af',
+              marginBottom: '16px',
+              display: 'flex',
+              alignItems: 'center'
+            }}>
+              <Sparkles style={{ width: '20px', height: '20px', marginRight: '8px' }} />
               ¿Qué puedes hacer?
             </h4>
-            <ul className="text-sm text-blue-700 space-y-3 text-left">
-              <li className="flex items-start space-x-3">
-                <span className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></span>
+            <ul style={{
+              fontSize: '14px',
+              color: '#1d4ed8',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '12px',
+              textAlign: 'left'
+            }}>
+              <li style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                <span style={{
+                  width: '8px',
+                  height: '8px',
+                  background: '#3b82f6',
+                  borderRadius: '50%',
+                  marginTop: '8px',
+                  flexShrink: 0
+                }}></span>
                 <span>Hacer preguntas específicas sobre el contenido</span>
               </li>
-              <li className="flex items-start space-x-3">
-                <span className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></span>
+              <li style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                <span style={{
+                  width: '8px',
+                  height: '8px',
+                  background: '#3b82f6',
+                  borderRadius: '50%',
+                  marginTop: '8px',
+                  flexShrink: 0
+                }}></span>
                 <span>Obtener resúmenes y puntos clave</span>
               </li>
-              <li className="flex items-start space-x-3">
-                <span className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></span>
+              <li style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                <span style={{
+                  width: '8px',
+                  height: '8px',
+                  background: '#3b82f6',
+                  borderRadius: '50%',
+                  marginTop: '8px',
+                  flexShrink: 0
+                }}></span>
                 <span>Comparar información entre documentos</span>
               </li>
-              <li className="flex items-start space-x-3">
-                <span className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></span>
+              <li style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                <span style={{
+                  width: '8px',
+                  height: '8px',
+                  background: '#3b82f6',
+                  borderRadius: '50%',
+                  marginTop: '8px',
+                  flexShrink: 0
+                }}></span>
                 <span>Encontrar información relevante rápidamente</span>
               </li>
             </ul>
@@ -93,47 +181,50 @@ export const ChatContainer: React.FC = () => {
         </>
       ) : (
         <>
-          <div className="relative mb-8">
-            <div className="absolute inset-0 bg-gradient-to-r from-green-400 to-blue-400 rounded-full blur-xl opacity-30 animate-pulse"></div>
-            <div className="relative w-24 h-24 bg-gradient-to-r from-green-500 to-blue-500 rounded-3xl flex items-center justify-center shadow-xl">
-              <Sparkles className="w-12 h-12 text-white" />
+          <div style={{ position: 'relative', marginBottom: '32px' }}>
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              background: 'radial-gradient(circle, rgba(34, 197, 94, 0.3) 0%, rgba(59, 130, 246, 0.3) 100%)',
+              borderRadius: '50%',
+              filter: 'blur(40px)',
+              opacity: 0.3
+            }}></div>
+            <div style={{
+              position: 'relative',
+              width: '96px',
+              height: '96px',
+              background: 'linear-gradient(135deg, #10b981 0%, #3b82f6 100%)',
+              borderRadius: '24px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 20px 40px rgba(16, 185, 129, 0.3)'
+            }}>
+              <Sparkles style={{ width: '48px', height: '48px', color: 'white' }} />
             </div>
           </div>
-          <h3 className="text-3xl font-bold bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent mb-4 text-shadow">
+          <h3 style={{
+            fontSize: '32px',
+            fontWeight: '700',
+            background: 'linear-gradient(135deg, #059669 0%, #3b82f6 100%)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            marginBottom: '16px',
+            textShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+          }}>
             ¡Documentos listos!
           </h3>
-          <p className="text-gray-600 mb-8 max-w-lg text-lg leading-relaxed">
+          <p style={{
+            color: '#6b7280',
+            marginBottom: '32px',
+            maxWidth: '512px',
+            fontSize: '18px',
+            lineHeight: '1.7',
+            fontWeight: '500'
+          }}>
             Tus documentos han sido procesados y están listos. Selecciona uno o varios documentos arriba y comienza a hacer preguntas.
           </p>
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="bg-purple-50/80 backdrop-blur-sm border border-purple-200/50 rounded-2xl p-6 max-w-md"
-          >
-            <h4 className="font-bold text-purple-800 mb-4 flex items-center">
-              <MessageSquare className="w-5 h-5 mr-2" />
-              Ejemplos de preguntas
-            </h4>
-            <ul className="text-sm text-purple-700 space-y-3 text-left">
-              <li className="flex items-start space-x-3">
-                <span className="text-purple-500 font-bold">•</span>
-                <span>"¿Cuáles son los puntos principales?"</span>
-              </li>
-              <li className="flex items-start space-x-3">
-                <span className="text-purple-500 font-bold">•</span>
-                <span>"Resume este documento en 3 párrafos"</span>
-              </li>
-              <li className="flex items-start space-x-3">
-                <span className="text-purple-500 font-bold">•</span>
-                <span>"¿Qué dice sobre [tema específico]?"</span>
-              </li>
-              <li className="flex items-start space-x-3">
-                <span className="text-purple-500 font-bold">•</span>
-                <span>"Compara las conclusiones entre documentos"</span>
-              </li>
-            </ul>
-          </motion.div>
         </>
       )}
     </motion.div>
@@ -141,39 +232,98 @@ export const ChatContainer: React.FC = () => {
 
   return (
     <motion.div
-      className="h-full flex flex-col"
+      style={{ height: '100%', display: 'flex', flexDirection: 'column' }}
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.1 }}
     >
-      <div className="color-card chat-container flex flex-col h-full overflow-hidden">
+      <div style={{
+        background: 'linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%)',
+        borderRadius: '24px',
+        border: '1px solid rgba(0, 0, 0, 0.08)',
+        boxShadow: '0 20px 40px rgba(0, 0, 0, 0.08), 0 0 40px rgba(59, 130, 246, 0.05)',
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        padding: '32px',
+        backdropFilter: 'blur(20px)',
+        overflow: 'hidden'
+      }}>
         {/* Header con efecto glassmorphism */}
-        <div className="chat-header">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center shadow-md">
-                <MessageSquare className="w-6 h-6 text-white" />
-              </div>
-              <div>
-                <h2 className="text-xl font-bold text-gray-800 text-shadow">
-                  Chat con Documentos
-                </h2>
-                <p className="text-sm text-gray-600 font-medium mt-1">
-                  {selectedDocuments.length > 0
-                    ? `${selectedDocuments.length} documento${selectedDocuments.length !== 1 ? 's' : ''} seleccionado${selectedDocuments.length !== 1 ? 's' : ''}`
-                    : readyDocuments.length > 0
-                      ? 'Selecciona documentos para empezar'
-                      : 'Sube documentos para empezar'
-                  }
-                </p>
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          marginBottom: '12px',
+          borderBottom: '2px solid',
+          borderImage: 'linear-gradient(90deg, #ec4899, #8b5cf6, #3b82f6) 1',
+          paddingBottom: '12px'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <div style={{
+              width: '40px',
+              height: '40px',
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              borderRadius: '12px',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              boxShadow: '0 8px 24px rgba(102, 126, 234, 0.4)',
+              position: 'relative'
+            }}>
+              <div style={{
+                position: 'absolute',
+                inset: '-3px',
+                background: 'linear-gradient(135deg, #a78bfa 0%, #f9a8d4 100%)',
+                borderRadius: '15px',
+                filter: 'blur(6px)',
+                opacity: 0.4
+              }}></div>
+              <div style={{ position: 'relative' }}>
+                <MessageSquare style={{ width: '24px', height: '24px', color: 'white' }} />
               </div>
             </div>
-            {messages.length > 1 && (
-              <div className="inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200">
-                {messages.length - 1} mensaje{messages.length !== 2 ? 's' : ''}
-              </div>
-            )}
+            <div>
+              <h2 style={{
+                fontSize: '24px',
+                fontWeight: '700',
+                background: 'linear-gradient(135deg, #1e40af 0%, #6366f1 50%, #8b5cf6 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                letterSpacing: '-0.02em',
+                marginBottom: '4px'
+              }}>
+                Chat con Documentos
+              </h2>
+              <p style={{
+                fontSize: '14px',
+                color: '#6b7280',
+                fontWeight: '500'
+              }}>
+                {selectedDocuments.length > 0
+                  ? `${selectedDocuments.length} documento${selectedDocuments.length !== 1 ? 's' : ''} seleccionado${selectedDocuments.length !== 1 ? 's' : ''}`
+                  : readyDocuments.length > 0
+                    ? 'Selecciona documentos para empezar'
+                    : 'Sube documentos para empezar'
+                }
+              </p>
+            </div>
           </div>
+          {messages.length > 1 && (
+            <div style={{
+              background: 'linear-gradient(135deg, #fce7f3 0%, #ddd6fe 100%)',
+              padding: '8px 20px',
+              borderRadius: '100px',
+              fontSize: '14px',
+              fontWeight: '700',
+              color: '#7c3aed',
+              border: '2px solid rgba(124, 58, 237, 0.2)',
+              boxShadow: '0 4px 12px rgba(124, 58, 237, 0.15)'
+            }}>
+              {messages.length - 1} mensaje{messages.length !== 2 ? 's' : ''}
+            </div>
+          )}
         </div>
 
         {/* Document Selection con chips elegantes */}
@@ -181,16 +331,46 @@ export const ChatContainer: React.FC = () => {
           <motion.div
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="bg-white/80 backdrop-blur-sm border-b border-gray-200 p-6"
+            style={{
+              background: 'rgba(255, 255, 255, 0.8)',
+              backdropFilter: 'blur(12px)',
+              borderBottom: '1px solid rgba(229, 231, 235, 0.5)',
+              padding: '24px',
+              marginBottom: '24px',
+              borderRadius: '16px',
+              border: '1px solid rgba(0, 0, 0, 0.05)'
+            }}
           >
-            <h3 className="text-sm font-bold text-gray-700 mb-4 flex items-center">
-              <span className="w-2 h-2 bg-blue-500 rounded-full mr-3"></span>
+            <h3 style={{
+              fontSize: '14px',
+              fontWeight: '700',
+              color: '#374151',
+              marginBottom: '16px',
+              display: 'flex',
+              alignItems: 'center'
+            }}>
+              <span style={{
+                width: '8px',
+                height: '8px',
+                background: '#3b82f6',
+                borderRadius: '50%',
+                marginRight: '12px'
+              }}></span>
               Documentos disponibles
-              <span className="ml-3 inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200">
+              <span style={{
+                marginLeft: '12px',
+                background: 'linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%)',
+                color: '#1e40af',
+                padding: '4px 12px',
+                borderRadius: '100px',
+                fontSize: '12px',
+                fontWeight: '700',
+                border: '1px solid rgba(59, 130, 246, 0.2)'
+              }}>
                 {readyDocuments.length}
               </span>
             </h3>
-            <div className="flex flex-wrap gap-3">
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
               {readyDocuments.map((doc, index) => (
                 <motion.button
                   key={doc.id}
@@ -200,33 +380,66 @@ export const ChatContainer: React.FC = () => {
                   transition={{ delay: index * 0.1 }}
                   whileHover={{ scale: 1.05, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`
-                    relative group px-4 py-3 rounded-xl text-sm font-semibold transition-all duration-300
-                    border backdrop-blur-sm hover-lift
-                    ${selectedDocuments.includes(doc.id)
-                      ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white border-blue-400 shadow-lg'
-                      : 'bg-white/60 text-gray-700 border-gray-200 hover:bg-white/80 hover:border-blue-200'
+                  style={{
+                    position: 'relative',
+                    padding: '12px 16px',
+                    borderRadius: '12px',
+                    fontSize: '14px',
+                    fontWeight: '600',
+                    transition: 'all 0.3s ease',
+                    border: '1px solid',
+                    backdropFilter: 'blur(8px)',
+                    cursor: 'pointer',
+                    background: selectedDocuments.includes(doc.id)
+                      ? 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)'
+                      : 'rgba(255, 255, 255, 0.6)',
+                    color: selectedDocuments.includes(doc.id) ? 'white' : '#374151',
+                    borderColor: selectedDocuments.includes(doc.id) ? '#667eea' : 'rgba(229, 231, 235, 0.8)',
+                    boxShadow: selectedDocuments.includes(doc.id)
+                      ? '0 8px 24px rgba(102, 126, 234, 0.4)'
+                      : '0 2px 8px rgba(0, 0, 0, 0.05)'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!selectedDocuments.includes(doc.id)) {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
+                      e.currentTarget.style.borderColor = 'rgba(147, 197, 253, 0.5)';
                     }
-                  `}
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!selectedDocuments.includes(doc.id)) {
+                      e.currentTarget.style.background = 'rgba(255, 255, 255, 0.6)';
+                      e.currentTarget.style.borderColor = 'rgba(229, 231, 235, 0.8)';
+                    }
+                  }}
                 >
-                  {/* Efecto de brillo en hover */}
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-400/20 to-purple-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div style={{
+                    position: 'relative',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px'
+                  }}>
+                    {/* Indicador de selección */}
+                    <div style={{
+                      width: '8px',
+                      height: '8px',
+                      borderRadius: '50%',
+                      background: selectedDocuments.includes(doc.id)
+                        ? '#10b981'
+                        : 'transparent',
+                      border: selectedDocuments.includes(doc.id)
+                        ? '2px solid #10b981'
+                        : '2px solid rgba(156, 163, 175, 0.5)',
+                      flexShrink: 0
+                    }}></div>
 
-                  <div className="relative flex items-center space-x-2">
-                    <span className="truncate max-w-32">
-                      {doc.name.length > 25 ? `${doc.name.substring(0, 25)}...` : doc.name}
+                    <span style={{
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                      maxWidth: '160px'
+                    }}>
+                      {doc.name.length > 30 ? `${doc.name.substring(0, 30)}...` : doc.name}
                     </span>
-                    {doc.chunkCount && (
-                      <span className={`
-                        text-xs px-2 py-1 rounded-full font-bold backdrop-blur-sm
-                        ${selectedDocuments.includes(doc.id)
-                          ? 'bg-white/20 text-white'
-                          : 'bg-blue-100 text-blue-700'
-                        }
-                      `}>
-                        {doc.chunkCount}
-                      </span>
-                    )}
                   </div>
                 </motion.button>
               ))}
@@ -235,17 +448,55 @@ export const ChatContainer: React.FC = () => {
         )}
 
         {/* Messages con fondo elegante */}
-        <div className="flex-1 overflow-y-auto relative">
+        <div style={{
+          flex: 1,
+          overflow: 'visible',
+          position: 'relative',
+          background: 'linear-gradient(135deg, rgba(249, 250, 251, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%)',
+          borderRadius: '16px',
+          border: '1px solid rgba(0, 0, 0, 0.03)',
+          backdropFilter: 'blur(8px)'
+        }}>
           {/* Fondo sutil con pattern */}
-          <div className="absolute inset-0 opacity-5">
-            <div className="absolute top-10 right-10 w-32 h-32 bg-gradient-to-br from-primary-400 to-accent-400 rounded-full blur-3xl"></div>
-            <div className="absolute bottom-10 left-10 w-24 h-24 bg-gradient-to-tl from-blue-400 to-purple-400 rounded-full blur-2xl"></div>
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            opacity: 0.05,
+            pointerEvents: 'none'
+          }}>
+            <div style={{
+              position: 'absolute',
+              top: '40px',
+              right: '40px',
+              width: '128px',
+              height: '128px',
+              background: 'radial-gradient(circle, rgba(59, 130, 246, 0.4) 0%, rgba(147, 51, 234, 0.4) 100%)',
+              borderRadius: '50%',
+              filter: 'blur(60px)'
+            }}></div>
+            <div style={{
+              position: 'absolute',
+              bottom: '40px',
+              left: '40px',
+              width: '96px',
+              height: '96px',
+              background: 'radial-gradient(circle, rgba(59, 130, 246, 0.3) 0%, rgba(124, 58, 237, 0.3) 100%)',
+              borderRadius: '50%',
+              filter: 'blur(40px)'
+            }}></div>
           </div>
 
           {messages.length <= 1 ? (
             <EmptyState />
           ) : (
-            <div className="relative z-10 p-6 space-y-6">
+            <div style={{
+              position: 'relative',
+              zIndex: 10,
+              padding: '24px',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '24px'
+            }}>
               <AnimatePresence mode="popLayout">
                 {messages.slice(1).map((message, index) => (
                   <motion.div
@@ -264,26 +515,58 @@ export const ChatContainer: React.FC = () => {
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
-                  className="flex justify-start"
+                  style={{ display: 'flex', justifyContent: 'flex-start' }}
                 >
-                  <div className="flex items-center space-x-4">
-                    <div className="w-10 h-10 rounded-2xl bg-gradient-to-r from-gray-600 to-blue-600 flex items-center justify-center shadow-md">
-                      <Sparkles className="w-5 h-5 text-white animate-pulse" />
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+                    <div style={{
+                      width: '40px',
+                      height: '40px',
+                      borderRadius: '16px',
+                      background: 'linear-gradient(135deg, #6b7280 0%, #3b82f6 100%)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)'
+                    }}>
+                      <Sparkles style={{ width: '20px', height: '20px', color: 'white' }} />
                     </div>
-                    <div className="bg-white/80 backdrop-blur-sm rounded-2xl rounded-bl-md px-6 py-4 border border-gray-200 shadow-lg">
-                      <div className="flex space-x-2">
+                    <div style={{
+                      background: 'rgba(255, 255, 255, 0.9)',
+                      backdropFilter: 'blur(12px)',
+                      borderRadius: '16px',
+                      borderBottomLeftRadius: '4px',
+                      padding: '16px 24px',
+                      border: '1px solid rgba(229, 231, 235, 0.5)',
+                      boxShadow: '0 8px 24px rgba(0, 0, 0, 0.08)'
+                    }}>
+                      <div style={{ display: 'flex', gap: '8px' }}>
                         <motion.div
-                          className="w-2.5 h-2.5 bg-blue-500 rounded-full"
+                          style={{
+                            width: '10px',
+                            height: '10px',
+                            background: '#3b82f6',
+                            borderRadius: '50%'
+                          }}
                           animate={{ y: [0, -8, 0] }}
                           transition={{ duration: 0.6, repeat: Infinity, delay: 0 }}
                         />
                         <motion.div
-                          className="w-2.5 h-2.5 bg-blue-500 rounded-full"
+                          style={{
+                            width: '10px',
+                            height: '10px',
+                            background: '#3b82f6',
+                            borderRadius: '50%'
+                          }}
                           animate={{ y: [0, -8, 0] }}
                           transition={{ duration: 0.6, repeat: Infinity, delay: 0.1 }}
                         />
                         <motion.div
-                          className="w-2.5 h-2.5 bg-blue-500 rounded-full"
+                          style={{
+                            width: '10px',
+                            height: '10px',
+                            background: '#3b82f6',
+                            borderRadius: '50%'
+                          }}
                           animate={{ y: [0, -8, 0] }}
                           transition={{ duration: 0.6, repeat: Infinity, delay: 0.2 }}
                         />
@@ -299,7 +582,14 @@ export const ChatContainer: React.FC = () => {
         </div>
 
         {/* Input con estilo moderno */}
-        <div className="bg-white/80 backdrop-blur-sm border-t border-gray-200">
+        <div style={{
+          background: 'rgba(255, 255, 255, 0.8)',
+          backdropFilter: 'blur(12px)',
+          borderTop: '1px solid rgba(229, 231, 235, 0.5)',
+          borderRadius: '16px',
+          border: '1px solid rgba(0, 0, 0, 0.05)',
+          marginTop: '24px'
+        }}>
           <ChatInput />
         </div>
       </div>
