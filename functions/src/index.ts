@@ -17,9 +17,9 @@ import {
 
 admin.initializeApp();
 
-const PINECONE_API_KEY = process.env.PINECONE_API_KEY || '';
-const PINECONE_INDEX_NAME = process.env.PINECONE_INDEX_NAME || 'document-chatbot';
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY || '';
+const PINECONE_API_KEY = functions.config().pinecone?.api_key || '';
+const PINECONE_INDEX_NAME = functions.config().pinecone?.index_name || 'document-chatbot';
+const GEMINI_API_KEY = functions.config().gemini?.api_key || '';
 
 const pinecone = new Pinecone({
   apiKey: PINECONE_API_KEY,
@@ -32,7 +32,15 @@ export const processDocument = functions
     timeoutSeconds: 540,
     memory: '2GB',
   })
-  .https.onCall(async (data: DocumentData): Promise<ProcessingResult> => {
+  .https.onCall(async (data: DocumentData, context): Promise<ProcessingResult> => {
+    console.log('processDocument function started with data:', JSON.stringify(data, null, 2));
+    console.log('Auth context:', JSON.stringify(context.auth, null, 2));
+    console.log('Environment check:', {
+      hasPineconeKey: !!PINECONE_API_KEY,
+      hasGeminiKey: !!GEMINI_API_KEY,
+      pineconeIndex: PINECONE_INDEX_NAME,
+    });
+
     try {
       const { documentId, filePath, fileName } = data;
 
@@ -43,7 +51,7 @@ export const processDocument = functions
         );
       }
 
-      console.log(`Processing document: ${documentId}`);
+      console.log(`Processing document: ${documentId} from path: ${filePath}`);
 
       const bucket = admin.storage().bucket();
       const file = bucket.file(filePath);
@@ -133,7 +141,7 @@ export const chatQuery = functions
     timeoutSeconds: 60,
     memory: '1GB',
   })
-  .https.onCall(async (data: ChatQuery): Promise<ChatResponse> => {
+  .https.onCall(async (data: ChatQuery, context): Promise<ChatResponse> => {
     try {
       const { query, documentIds } = data;
 
@@ -175,7 +183,8 @@ export const chatQuery = functions
         .filter((text) => text.length > 0)
         .join('\n\n---\n\n');
 
-      const chatModel = genAI.getGenerativeModel({ model: 'gemini-pro' });
+      // Updated to use the latest Gemini model
+      const chatModel = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
       const prompt = `
 Eres un asistente experto que responde preguntas basándote únicamente en el contexto proporcionado.
 
@@ -207,7 +216,7 @@ Respuesta:`;
           score: match.score || 0,
         })),
         timestamp: admin.firestore.FieldValue.serverTimestamp(),
-        userId: data.userId,
+        userId: (context as any).auth?.uid || 'anonymous',
         conversationId: data.conversationId,
       });
 
@@ -234,6 +243,12 @@ Respuesta:`;
       );
     }
   });
+
+export const testFunction = functions.https.onCall(async (data, context) => {
+  console.log('Test function called with data:', JSON.stringify(data));
+  console.log('Auth context:', JSON.stringify(context.auth));
+  return { message: 'Test function works!', timestamp: new Date().toISOString() };
+});
 
 export const deleteDocument = functions.https.onCall(
   async (data: { documentId: string }) => {

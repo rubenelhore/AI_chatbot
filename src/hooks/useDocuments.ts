@@ -35,39 +35,44 @@ export const useDocuments = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const user = auth.currentUser;
-    if (!user) {
-      setDocuments([]);
-      setIsLoading(false);
-      return;
-    }
+    const unsubscribeAuth = auth.onAuthStateChanged((user) => {
+      console.log('Auth state changed:', user?.uid);
 
-    const q = query(
-      collection(db, 'documents'),
-      where('userId', '==', user.uid),
-      orderBy('uploadedAt', 'desc')
-    );
-
-    const unsubscribe = onSnapshot(
-      q,
-      (snapshot) => {
-        const docs = snapshot.docs.map(doc => ({
-          id: doc.id,
-          ...doc.data()
-        })) as Document[];
-
-        console.log('Documents updated:', docs);
-        setDocuments(docs);
+      if (!user) {
+        setDocuments([]);
         setIsLoading(false);
-      },
-      (error) => {
-        console.error('Error listening to documents:', error);
-        setIsLoading(false);
+        return;
       }
-    );
 
-    return () => unsubscribe();
-  }, [auth.currentUser]);
+      const q = query(
+        collection(db, 'documents'),
+        where('userId', '==', user.uid),
+        orderBy('uploadedAt', 'desc')
+      );
+
+      const unsubscribe = onSnapshot(
+        q,
+        (snapshot) => {
+          const docs = snapshot.docs.map(doc => ({
+            id: doc.id,
+            ...doc.data()
+          })) as Document[];
+
+          console.log('Documents updated:', docs);
+          setDocuments(docs);
+          setIsLoading(false);
+        },
+        (error) => {
+          console.error('Error listening to documents:', error);
+          setIsLoading(false);
+        }
+      );
+
+      return () => unsubscribe();
+    });
+
+    return () => unsubscribeAuth();
+  }, []);
 
   const uploadMutation = useMutation({
     mutationFn: uploadAndProcessDocument,

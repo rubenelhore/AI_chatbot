@@ -66,6 +66,13 @@ export const uploadAndProcessDocument = async (file: File): Promise<DocumentUplo
     });
 
     console.log('Processing document with Cloud Function...');
+    console.log('Function call parameters:', {
+      documentId: docRef.id,
+      filePath: snapshot.ref.fullPath,
+      fileName: file.name,
+      fileType: file.type,
+      userId: user.uid
+    });
 
     try {
       // Timeout después de 60 segundos
@@ -73,6 +80,7 @@ export const uploadAndProcessDocument = async (file: File): Promise<DocumentUplo
         setTimeout(() => reject(new Error('Timeout: Cloud Function taking too long')), 60000)
       );
 
+      console.log('Calling processDocumentCall...');
       const processPromise = processDocumentCall({
         documentId: docRef.id,
         filePath: snapshot.ref.fullPath,
@@ -80,6 +88,7 @@ export const uploadAndProcessDocument = async (file: File): Promise<DocumentUplo
         fileType: file.type,
         userId: user.uid
       });
+      console.log('processDocumentCall initiated');
 
       const result = await Promise.race([processPromise, timeoutPromise]);
 

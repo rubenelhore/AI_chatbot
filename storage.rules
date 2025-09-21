@@ -8,6 +8,14 @@ service firebase.storage {
     }
 
     // Allow authenticated users to upload documents
+    match /uploads/{allPaths=**} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null &&
+        request.resource.size < 10 * 1024 * 1024 && // Max 10MB
+        request.resource.contentType.matches('application/pdf|application/vnd.*|text/plain');
+    }
+
+    // Allow authenticated users to upload documents (legacy path)
     match /documents/{documentId}/{fileName} {
       allow read: if request.auth != null;
       allow write: if request.auth != null &&
