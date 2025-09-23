@@ -51,6 +51,11 @@ exports.processDocument = functions
         hasGeminiKey: !!GEMINI_API_KEY,
         pineconeIndex: PINECONE_INDEX_NAME,
     });
+    // Verificar autenticación
+    if (!context.auth) {
+        throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated to process documents');
+    }
+    const userId = context.auth.uid;
     try {
         const { documentId, filePath, fileName } = data;
         if (!documentId || !filePath) {
@@ -89,12 +94,14 @@ exports.processDocument = functions
             }));
             vectors.push(...embeddings);
         }
-        await index.namespace('documents').upsert(vectors);
+        // Usar el userId como namespace en Pinecone para aislar los datos
+        await index.namespace(`user-${userId}`).upsert(vectors);
         await admin.firestore().collection('documents').doc(documentId).update({
             status: 'processed',
             chunkCount: chunks.length,
             processedAt: admin.firestore.FieldValue.serverTimestamp(),
             textLength: text.length,
+            userId: userId, // Asociar documento con el usuario
         });
         return {
             success: true,
@@ -126,7 +133,11 @@ exports.chatQuery = functions
     memory: '1GB',
 })
     .https.onCall(async (data, context) => {
-    var _a;
+    // Verificar autenticación
+    if (!context.auth) {
+        throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated to chat');
+    }
+    const userId = context.auth.uid;
     try {
         const { query, documentIds } = data;
         if (!query || !documentIds || documentIds.length === 0) {
@@ -136,7 +147,8 @@ exports.chatQuery = functions
         const model = genAI.getGenerativeModel({ model: 'embedding-001' });
         const queryEmbedding = await model.embedContent(query);
         const index = pinecone.Index(PINECONE_INDEX_NAME);
-        const searchResults = await index.namespace('documents').query({
+        // Buscar solo en el namespace del usuario
+        const searchResults = await index.namespace(`user-${userId}`).query({
             vector: queryEmbedding.embedding.values,
             topK: 5,
             includeMetadata: true,
@@ -193,7 +205,7 @@ Respuesta:`;
                 });
             }),
             timestamp: admin.firestore.FieldValue.serverTimestamp(),
-            userId: ((_a = context.auth) === null || _a === void 0 ? void 0 : _a.uid) || 'anonymous',
+            userId: userId,
             conversationId: data.conversationId,
         });
         return {
@@ -223,7 +235,12 @@ exports.testFunction = functions.https.onCall(async (data, context) => {
     console.log('Auth context:', JSON.stringify(context.auth));
     return { message: 'Test function works!', timestamp: new Date().toISOString() };
 });
-exports.deleteDocument = functions.https.onCall(async (data) => {
+exports.deleteDocument = functions.https.onCall(async (data, context) => {
+    // Verificar autenticación
+    if (!context.auth) {
+        throw new functions.https.HttpsError('unauthenticated', 'User must be authenticated to delete documents');
+    }
+    const userId = context.auth.uid;
     try {
         const { documentId } = data;
         if (!documentId) {
@@ -240,13 +257,18 @@ exports.deleteDocument = functions.https.onCall(async (data) => {
             throw new functions.https.HttpsError('not-found', 'Document not found');
         }
         const docData = docRef.data();
+        // Verificar que el documento pertenece al usuario
+        if ((docData === null || docData === void 0 ? void 0 : docData.userId) !== userId) {
+            throw new functions.https.HttpsError('permission-denied', 'You do not have permission to delete this document');
+        }
         const chunkCount = (docData === null || docData === void 0 ? void 0 : docData.chunkCount) || 0;
         const vectorIds = [];
         for (let i = 0; i < chunkCount; i++) {
             vectorIds.push(`${documentId}_chunk_${i}`);
         }
         if (vectorIds.length > 0) {
-            await index.namespace('documents').deleteMany(vectorIds);
+            // Eliminar del namespace del usuario
+            await index.namespace(`user-${userId}`).deleteMany(vectorIds);
         }
         await admin.firestore().collection('documents').doc(documentId).delete();
         return {
