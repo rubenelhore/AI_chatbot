@@ -378,8 +378,8 @@ export const ChatContainer: React.FC = () => {
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: index * 0.1 }}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  whileTap={{ scale: 0.95 }}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
                   style={{
                     position: 'relative',
                     padding: '12px 16px',
@@ -452,9 +452,9 @@ export const ChatContainer: React.FC = () => {
           flex: 1,
           overflow: 'visible',
           position: 'relative',
-          background: 'linear-gradient(135deg, rgba(249, 250, 251, 0.3) 0%, rgba(255, 255, 255, 0.3) 100%)',
+          background: 'linear-gradient(135deg, rgba(245, 247, 255, 0.4) 0%, rgba(239, 246, 255, 0.3) 50%, rgba(243, 244, 246, 0.3) 100%)',
           borderRadius: '16px',
-          border: '1px solid rgba(0, 0, 0, 0.03)',
+          border: '1px solid rgba(99, 102, 241, 0.06)',
           backdropFilter: 'blur(8px)'
         }}>
           {/* Fondo sutil con pattern */}
@@ -583,11 +583,11 @@ export const ChatContainer: React.FC = () => {
 
         {/* Input con estilo moderno */}
         <div style={{
-          background: 'rgba(255, 255, 255, 0.8)',
+          background: 'rgba(248, 250, 252, 0.9)',
           backdropFilter: 'blur(12px)',
-          borderTop: '1px solid rgba(229, 231, 235, 0.5)',
+          borderTop: '1px solid rgba(199, 210, 254, 0.3)',
           borderRadius: '16px',
-          border: '1px solid rgba(0, 0, 0, 0.05)',
+          border: '1px solid rgba(99, 102, 241, 0.08)',
           marginTop: '24px'
         }}>
           <ChatInput />

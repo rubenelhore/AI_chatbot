@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Google Authentication</title>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js';
+        import { getAuth, signInWithPopup, GoogleAuthProvider } from 'https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDhcDjDvKd6Iz2hGcTg8eN0v0dveF_DwOg",
+            authDomain: "ai-chatbot-c0bed.firebaseapp.com",
+            projectId: "ai-chatbot-c0bed",
+            storageBucket: "ai-chatbot-c0bed.firebasestorage.app",
+            messagingSenderId: "919555208445",
+            appId: "1:919555208445:web:87f842a88ed8adb7703a94"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+
+        window.testGoogleAuth = async function() {
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = 'Iniciando autenticación...';
+
+            try {
+                console.log('Iniciando popup de Google...');
+                const result = await signInWithPopup(auth, provider);
+                console.log('Autenticación exitosa:', result);
+
+                const user = result.user;
+                resultDiv.innerHTML = `
+                    <h3 style="color: green;">¡Autenticación exitosa!</h3>
+                    <p><strong>Nombre:</strong> ${user.displayName}</p>
+                    <p><strong>Email:</strong> ${user.email}</p>
+                    <p><strong>UID:</strong> ${user.uid}</p>
+                    <img src="${user.photoURL}" alt="Profile" style="width: 50px; border-radius: 50%;">
+                `;
+            } catch (error) {
+                console.error('Error completo:', error);
+                resultDiv.innerHTML = `
+                    <h3 style="color: red;">Error de autenticación</h3>
+                    <p><strong>Código:</strong> ${error.code}</p>
+                    <p><strong>Mensaje:</strong> ${error.message}</p>
+                    <p><strong>Email:</strong> ${error.customData?.email || 'N/A'}</p>
+                    <pre>${JSON.stringify(error, null, 2)}</pre>
+                `;
+            }
+        }
+
+        window.checkAuthProviders = async function() {
+            try {
+                const result = await fetch('https://identitytoolkit.googleapis.com/v1/projects/ai-chatbot-c0bed/accounts:createAuthUri?key=AIzaSyDhcDjDvKd6Iz2hGcTg8eN0v0dveF_DwOg', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        identifier: 'test@example.com',
+                        continueUri: 'http://localhost:3001'
+                    })
+                });
+                const data = await result.json();
+                console.log('Proveedores habilitados:', data);
+                document.getElementById('providers').innerHTML = `
+                    <h3>Estado de configuración:</h3>
+                    <pre>${JSON.stringify(data, null, 2)}</pre>
+                `;
+            } catch (error) {
+                console.error('Error verificando proveedores:', error);
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #4285f4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #357ae8;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #f9f9f9;
+        }
+        pre {
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 4px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Test de Autenticación con Google</h1>
+
+    <button onclick="testGoogleAuth()">Probar Google Sign-In</button>
+    <button onclick="checkAuthProviders()">Verificar Proveedores Habilitados</button>
+
+    <div id="result">
+        <p>Haz clic en el botón para probar la autenticación</p>
+    </div>
+
+    <div id="providers"></div>
+
+    <hr>
+
+    <h2>Instrucciones:</h2>
+    <ol>
+        <li>Abre esta página en tu navegador</li>
+        <li>Abre la consola del navegador (F12) para ver los logs detallados</li>
+        <li>Haz clic en "Probar Google Sign-In"</li>
+        <li>Si el popup no aparece, verifica que no esté bloqueado</li>
+        <li>Si hay un error, revisa el mensaje detallado</li>
+    </ol>
+
+    <h3>Posibles soluciones:</h3>
+    <ul>
+        <li><strong>Error: auth/operation-not-allowed</strong> - Ve a Firebase Console > Authentication > Sign-in method y habilita Google</li>
+        <li><strong>Error: popup-blocked</strong> - Permite popups en tu navegador para este sitio</li>
+        <li><strong>Error: invalid-api-key</strong> - Verifica que la API key sea correcta</li>
+        <li><strong>Error: auth-domain-config-required</strong> - Verifica el authDomain en la configuración</li>
+    </ul>
+</body>
+</html>

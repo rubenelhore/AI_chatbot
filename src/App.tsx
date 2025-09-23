@@ -6,6 +6,8 @@ import { DocumentList } from './components/document/DocumentList'
 import { ChatContainer } from './components/chat/ChatContainer'
 import { ErrorBoundary } from './components/ui/ErrorBoundary'
 import { ToastProvider } from './components/ui/Toast'
+import { LoginForm } from './components/auth/LoginForm'
+import { AuthProvider, useAuth } from './contexts/AuthContext'
 import { FileText, MessageCircle } from 'lucide-react'
 
 const queryClient = new QueryClient({
@@ -21,8 +23,31 @@ const queryClient = new QueryClient({
 
 type ViewType = 'documents' | 'chat';
 
-function App() {
+function AppContent() {
   const [activeView, setActiveView] = useState<ViewType>('documents');
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div style={{
+        height: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #e0e7ff 75%, #f3f4f6 100%)'
+      }}>
+        <div style={{
+          fontSize: '18px',
+          color: '#667eea',
+          fontWeight: '600'
+        }}>Cargando...</div>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <LoginForm onSuccess={() => {}} />;
+  }
 
   return (
     <ErrorBoundary>
@@ -187,6 +212,14 @@ function App() {
       </QueryClientProvider>
     </ErrorBoundary>
   )
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
 }
 
 export default App

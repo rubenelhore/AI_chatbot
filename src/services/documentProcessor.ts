@@ -11,15 +11,11 @@ export interface DocumentUploadResult {
 
 export const uploadAndProcessDocument = async (file: File): Promise<DocumentUploadResult> => {
   try {
-    let user = auth.currentUser;
+    const user = auth.currentUser;
 
-    // Si no hay usuario autenticado, autenticar anónimamente
+    // Requerir autenticación real
     if (!user) {
-      console.log('No user authenticated, signing in anonymously...');
-      const { signInAnonymously } = await import('firebase/auth');
-      const userCredential = await signInAnonymously(auth);
-      user = userCredential.user;
-      console.log('Anonymous authentication successful:', user.uid);
+      throw new Error('Debes iniciar sesión para subir documentos');
     }
 
     const timestamp = Date.now();

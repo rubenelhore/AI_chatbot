@@ -1,8 +1,10 @@
 import React from 'react'
-import { MessageSquare, Sparkles, Brain, Zap, Settings, User } from 'lucide-react'
+import { MessageSquare, Sparkles, Brain, Zap, Settings, User, LogOut } from 'lucide-react'
 import { Button } from '../ui/Button'
+import { useAuth } from '../../contexts/AuthContext'
 
 export const Header: React.FC = () => {
+  const { user, logout } = useAuth();
   return (
     <header>
       <div style={{display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '50px', position: 'relative'}}>
@@ -47,12 +49,41 @@ export const Header: React.FC = () => {
 
         {/* Lado derecho - Controles de usuario */}
         <div className="flex items-center space-x-3" style={{marginLeft: 'auto', position: 'relative', zIndex: 10}}>
-          <button className="color-button">
-            <Settings style={{width: '16px', height: '16px'}} />
-          </button>
-          <button className="color-button">
-            <User style={{width: '16px', height: '16px'}} />
-          </button>
+          {user && (
+            <div style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '12px',
+              padding: '8px 16px',
+              background: 'rgba(255, 255, 255, 0.9)',
+              borderRadius: '12px',
+              border: '1px solid rgba(226, 232, 240, 0.5)',
+              marginRight: '8px'
+            }}>
+              <User style={{width: '16px', height: '16px', color: '#667eea'}} />
+              <span style={{
+                fontSize: '14px',
+                fontWeight: '600',
+                color: '#4b5563'
+              }}>
+                {user.displayName || user.email?.split('@')[0]}
+              </span>
+            </div>
+          )}
+          {user && (
+            <button
+              onClick={logout}
+              className="color-button"
+              title="Cerrar sesión"
+              style={{
+                background: 'rgba(239, 68, 68, 0.1)',
+                border: '1px solid rgba(239, 68, 68, 0.2)',
+                color: '#dc2626'
+              }}
+            >
+              <LogOut style={{width: '16px', height: '16px'}} />
+            </button>
+          )}
         </div>
       </div>
 

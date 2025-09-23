@@ -150,13 +150,11 @@ export const ChatInput: React.FC = () => {
                   e.currentTarget.style.background = 'linear-gradient(135deg, rgba(219, 234, 254, 0.8) 0%, rgba(191, 219, 254, 0.8) 100%)';
                   e.currentTarget.style.color = '#1e40af';
                   e.currentTarget.style.borderColor = 'rgba(59, 130, 246, 0.3)';
-                  e.currentTarget.style.transform = 'translateY(-1px)';
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background = 'linear-gradient(135deg, rgba(243, 244, 246, 0.8) 0%, rgba(229, 231, 235, 0.8) 100%)';
                   e.currentTarget.style.color = '#4b5563';
                   e.currentTarget.style.borderColor = 'rgba(209, 213, 219, 0.5)';
-                  e.currentTarget.style.transform = 'translateY(0)';
                 }}
               >
                 {suggestion}
@@ -218,14 +216,14 @@ export const ChatInput: React.FC = () => {
                   position: 'absolute',
                   right: '12px',
                   top: '50%',
-                  transform: 'translateY(-50%)',
+                  marginTop: '-22px',
                   padding: '6px',
                   background: 'none',
                   border: 'none',
                   cursor: isLoading || !hasSelectedDocuments ? 'not-allowed' : 'pointer',
                   color: isListening ? '#ef4444' : '#9ca3af',
                   opacity: isLoading || !hasSelectedDocuments ? 0.5 : 1,
-                  transition: 'all 0.2s ease',
+                  transition: 'color 0.2s ease, background 0.2s ease',
                   borderRadius: '6px'
                 }}
                 onMouseEnter={(e) => {
@@ -263,7 +261,7 @@ export const ChatInput: React.FC = () => {
                 borderRadius: '12px',
                 cursor: isLoading ? 'not-allowed' : 'pointer',
                 color: '#6b7280',
-                transition: 'all 0.2s ease',
+                transition: 'background 0.2s ease, color 0.2s ease, border-color 0.2s ease',
                 backdropFilter: 'blur(8px)',
                 opacity: isLoading ? 0.5 : 1
               }}
@@ -271,13 +269,13 @@ export const ChatInput: React.FC = () => {
                 if (!isLoading) {
                   e.currentTarget.style.background = 'rgba(243, 244, 246, 0.9)';
                   e.currentTarget.style.color = '#374151';
-                  e.currentTarget.style.transform = 'translateY(-1px)';
+                  e.currentTarget.style.borderColor = 'rgba(156, 163, 175, 0.5)';
                 }
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = 'rgba(255, 255, 255, 0.8)';
                 e.currentTarget.style.color = '#6b7280';
-                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.borderColor = 'rgba(209, 213, 219, 0.5)';
               }}
             >
               <RotateCcw style={{ width: '16px', height: '16px' }} />
@@ -296,7 +294,7 @@ export const ChatInput: React.FC = () => {
                 borderRadius: '12px',
                 cursor: canSend ? 'pointer' : 'not-allowed',
                 color: 'white',
-                transition: 'all 0.2s ease',
+                transition: 'background 0.2s ease, box-shadow 0.2s ease',
                 boxShadow: canSend ? '0 4px 12px rgba(102, 126, 234, 0.3)' : 'none',
                 display: 'flex',
                 alignItems: 'center',
@@ -306,14 +304,12 @@ export const ChatInput: React.FC = () => {
               onMouseEnter={(e) => {
                 if (canSend) {
                   e.currentTarget.style.background = 'linear-gradient(135deg, #5a67d8 0%, #6b46c1 100%)';
-                  e.currentTarget.style.transform = 'translateY(-1px)';
                   e.currentTarget.style.boxShadow = '0 6px 16px rgba(102, 126, 234, 0.4)';
                 }
               }}
               onMouseLeave={(e) => {
                 if (canSend) {
                   e.currentTarget.style.background = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
-                  e.currentTarget.style.transform = 'translateY(0)';
                   e.currentTarget.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.3)';
                 }
               }}
