@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AI Document Chat</title>
+    <style>
+      /* ESTILOS FORZADOS CRÍTICOS */
+      * {
+        box-sizing: border-box !important;
+      }
+
+      html {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-family: 'Inter', system-ui, sans-serif !important;
+        height: 100% !important;
+        overflow-y: scroll !important;
+        overflow-x: hidden !important;
+      }
+
+      body {
+        margin: 0 !important;
+        padding: 0 !important;
+        font-family: 'Inter', system-ui, sans-serif !important;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #e0e7ff 75%, #f3f4f6 100%) !important;
+        min-height: 100vh !important;
+        position: relative !important;
+        overflow-y: scroll !important;
+        overflow-x: hidden !important;
+      }
+
+      #root {
+        min-height: 100vh !important;
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #e0e7ff 75%, #f3f4f6 100%) !important;
+        position: relative !important;
+        overflow-y: visible !important;
+        overflow-x: hidden !important;
+      }
+
+      /* SOBRESCRIBIR CUALQUIER DIV CON GRADIENTE AZUL */
+      div[style*="background: linear-gradient(135deg, rgb(59, 130, 246)"],
+      div[style*="linear-gradient(135deg, rgb(59, 130, 246)"] {
+        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 25%, #e0e7ff 75%, #f3f4f6 100%) !important;
+      }
+
+      /* FORZAR HEADER */
+      header {
+        background: rgba(255, 255, 255, 0.85) !important;
+        backdrop-filter: blur(24px) !important;
+        -webkit-backdrop-filter: blur(24px) !important;
+        border-bottom: 1px solid rgba(226, 232, 240, 0.3) !important;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+        padding: 24px 40px !important;
+        position: sticky !important;
+        top: 0 !important;
+        z-index: 50 !important;
+        transition: all 0.3s ease !important;
+      }
+
+      /* Sobrescribir clases específicas */
+      .relative.z-20.bg-white\/90.backdrop-blur-xl.border-b.border-gray-200.shadow-lg,
+      div[class*="relative z-20"],
+      div[class*="bg-white"] {
+        background: rgba(255, 255, 255, 0.85) !important;
+        backdrop-filter: blur(24px) !important;
+        -webkit-backdrop-filter: blur(24px) !important;
+      }
+
+      /* CARDS ELEGANTES */
+      .bg-white\/90,
+      div[class*="bg-white/90"],
+      div[class*="backdrop-blur-sm"] {
+        background: rgba(255, 255, 255, 0.85) !important;
+        backdrop-filter: blur(24px) !important;
+        -webkit-backdrop-filter: blur(24px) !important;
+        border-radius: 24px !important;
+        border: 1px solid rgba(226, 232, 240, 0.4) !important;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), 0 20px 25px -5px rgba(0, 0, 0, 0.08), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+      }
+
+      /* BOTONES ELEGANTES */
+      button {
+        background: rgba(255, 255, 255, 0.8) !important;
+        color: #4b5563 !important;
+        border: 1px solid rgba(226, 232, 240, 0.5) !important;
+        border-radius: 12px !important;
+        font-weight: 500 !important;
+        cursor: pointer !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        backdrop-filter: blur(12px) !important;
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 4px 8px rgba(0, 0, 0, 0.04) !important;
+      }
+
+      button:hover {
+        background: rgba(255, 255, 255, 0.95) !important;
+        border-color: rgba(99, 102, 241, 0.3) !important;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(99, 102, 241, 0.12) !important;
+      }
+
+      /* FORZAR SCROLL EN TODOS LOS CONTENEDORES */
+      div[style*="min-height: 100vh"] {
+        overflow-y: scroll !important;
+        overflow-x: hidden !important;
+      }
+
+      /* Contenedores principales */
+      main, [class*="main"], [class*="container"] {
+        overflow-y: visible !important;
+        overflow-x: hidden !important;
+      }
+
+      /* Grids y flex containers */
+      div[class*="grid"], div[class*="flex"] {
+        overflow-y: visible !important;
+        overflow-x: hidden !important;
+      }
+
+      /* Chat containers específicos */
+      div[class*="chat"], div[class*="h-full"] {
+        overflow-y: visible !important;
+        overflow-x: hidden !important;
+      }
+
+      /* Forzar scroll en altura específica */
+      div[style*="calc(100vh"] {
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+      }
+
+      /* ELIMINAR SCROLL PARTICULAR DE UPLOAD - ULTRA AGRESIVO */
+      div[class*="flex-1"],
+      div[class*="min-h-0"],
+      div[style*="height: 100%"],
+      div[style*="opacity: 1; transform: none"],
+      .flex-1,
+      .min-h-0,
+      .h-full {
+        overflow: visible !important;
+        max-height: none !important;
+        height: auto !important;
+      }
+
+      /* Área de upload sin scroll */
+      div[role="presentation"] {
+        overflow: visible !important;
+        max-height: none !important;
+      }
+
+      /* Contenedores específicos de upload */
+      .color-card.upload-card {
+        overflow: visible !important;
+        max-height: none !important;
+        height: auto !important;
+      }
+
+      /* Forzar todas las clases de Tailwind problemáticas */
+      .flex-1.min-h-0,
+      div[class="flex-1 min-h-0"],
+      div[class*="flex-1"][class*="min-h-0"] {
+        overflow: visible !important;
+        max-height: none !important;
+        height: auto !important;
+        min-height: auto !important;
+      }
+
+      /* ANULAR COMPLETAMENTE TODOS LOS CONTENEDORES DE GRID Y FLEX */
+      div[class*="xl:col-span"],
+      div[class*="2xl:col-span"],
+      div[class*="flex flex-col"],
+      div[class*="space-y-"],
+      .xl\:col-span-4,
+      .xl\:col-span-8,
+      .\32xl\:col-span-3,
+      .\32xl\:col-span-9 {
+        overflow: visible !important;
+        max-height: none !important;
+        height: auto !important;
+      }
+
+      /* CONTENEDORES FLEX CON H-FULL */
+      div[class*="flex flex-col h-full"],
+      div[class="flex flex-col h-full space-y-6"] {
+        overflow: visible !important;
+        max-height: none !important;
+        height: auto !important;
+      }
+
+      /* AGRESIVO: TODOS LOS DIVS CON CUALQUIER COMBINACIÓN PROBLEMÁTICA */
+      div[class*="col-span"][class*="flex"],
+      div[class*="col-span"][class*="h-full"],
+      div[class*="space-y-"][class*="flex"],
+      div[class*="space-y-"][class*="h-full"],
+      div[class*="min-h-"][class*="flex-1"],
+      div[class*="h-full"][class*="space-y-"],
+      div[class*="h-full"][class*="flex flex-col"] {
+        overflow: visible !important;
+        max-height: none !important;
+        height: auto !important;
+        min-height: auto !important;
+      }
+
+      /* ULTRA AGRESIVO: CUALQUIER DIV QUE TENGA ESTAS CLASES JUNTAS */
+      div.xl\:col-span-4.flex.flex-col.h-full.space-y-6,
+      div.xl\:col-span-8.flex.flex-col.h-full.space-y-6,
+      div.\\32 xl\:col-span-3.flex.flex-col.h-full.space-y-6,
+      div.\\32 xl\:col-span-9.flex.flex-col.h-full.space-y-6 {
+        overflow: visible !important;
+        max-height: none !important;
+        height: auto !important;
+        min-height: auto !important;
+      }
+
+      /* FORZAR ESPECÍFICAMENTE GRID CONTAINERS SIN SCROLL */
+      .grid.grid-cols-1.xl\:grid-cols-12.\\32 xl\:grid-cols-12.gap-6.h-full,
+      div[class*="grid"][class*="grid-cols"][class*="h-full"] {
+        overflow: visible !important;
+        max-height: none !important;
+        height: auto !important;
+      }
+
+      /* ELIMINAR SCROLL DEL TÍTULO Y HEADER COMPLETAMENTE */
+      .main-title,
+      h1.main-title,
+      h1[class*="main-title"] {
+        overflow: visible !important;
+        max-height: none !important;
+        height: auto !important;
+        white-space: nowrap !important;
+        text-overflow: visible !important;
+      }
+
+      /* ELIMINAR SCROLL DE CUALQUIER H1, H2, H3 */
+      h1, h2, h3, h4, h5, h6 {
+        overflow: visible !important;
+        max-height: none !important;
+        height: auto !important;
+        white-space: nowrap !important;
+        text-overflow: visible !important;
+      }
+
+      /* FORZAR HEADER SIN SCROLL */
+      header, header * {
+        overflow: visible !important;
+        max-height: none !important;
+        height: auto !important;
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-CROKNv8_.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-CD65g0g_.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>

@@ -32,7 +32,7 @@ export const uploadAndProcessDocument = async (file: File): Promise<DocumentUplo
       setTimeout(() => reject(new Error('Upload timeout after 30 seconds')), 30000)
     );
 
-    const snapshot = await Promise.race([uploadPromise, uploadTimeout]);
+    const snapshot = await Promise.race([uploadPromise, uploadTimeout]) as any;
     console.log('Upload completed, getting download URL...');
 
     const downloadURL = await getDownloadURL(snapshot.ref);

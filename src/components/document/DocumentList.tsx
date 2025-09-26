@@ -169,13 +169,13 @@ const DocumentItem: React.FC<DocumentItemProps> = React.memo(({ document }) => {
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = 'linear-gradient(135deg, #7c3aed 0%, #ec4899 50%, #3b82f6 100%)';
-              e.currentTarget.style.WebkitBackgroundClip = 'text';
-              e.currentTarget.style.WebkitTextFillColor = 'transparent';
+(e.currentTarget.style as any).webkitBackgroundClip = 'text';
+              (e.currentTarget.style as any).webkitTextFillColor = 'transparent';
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.background = 'linear-gradient(135deg, #1f2937 0%, #4b5563 100%)';
-              e.currentTarget.style.WebkitBackgroundClip = 'text';
-              e.currentTarget.style.WebkitTextFillColor = 'transparent';
+(e.currentTarget.style as any).webkitBackgroundClip = 'text';
+              (e.currentTarget.style as any).webkitTextFillColor = 'transparent';
             }}
             >
               {document.name}

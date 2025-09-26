@@ -172,7 +172,7 @@ exports.chatQuery = functions
             .filter((text) => text.length > 0)
             .join('\n\n---\n\n');
         // Updated to use the latest Gemini model
-        const chatModel = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' });
+        const chatModel = genAI.getGenerativeModel({ model: 'gemini-2.0-flash' });
         const prompt = `
 Eres un asistente experto que responde preguntas basándote únicamente en el contexto proporcionado.
 
