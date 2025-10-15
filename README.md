@@ -97,7 +97,7 @@ Open http://localhost:5173
 ![Upload](https://i.imgur.com/Rl7BmKe.png)
 
 ### Chat Interface
-![Chat](https://i.imgur.com/PcKrT3H.pnh)
+![Chat](https://i.imgur.com/PcKrT3H.png)
 
 ---
 
