@@ -8,7 +8,7 @@
 
 Upload documents (PDFs, text files), ask questions in natural language, and get accurate answers with source citations powered by AI.
 
-**Live Demo:** [Coming Soon] | **Video Demo:** [2-min Loom video - add link]
+ **Video Demo:** [https://www.loom.com/share/bed2493c3610435f808a22118d6d521a?sid=63662132-863d-494b-8921-efba3740eda6]
 
 ---
 
@@ -94,13 +94,10 @@ Open http://localhost:5173
 ## 📸 Screenshots
 
 ### Upload Interface
-![Upload](https://via.placeholder.com/600x300?text=Upload+Screenshot)
+![Upload](https://i.imgur.com/Rl7BmKe.png)
 
 ### Chat Interface
-![Chat](https://via.placeholder.com/600x300?text=Chat+Screenshot)
-
-### Answer with Sources
-![Answer](https://via.placeholder.com/600x300?text=Answer+Screenshot)
+![Chat](https://i.imgur.com/a/sBAAyJm.png)
 
 ---
 
@@ -159,9 +156,9 @@ This is a personal learning project, but feedback is welcome! Open an issue or r
 ## 👨‍💻 Author
 
 **Rubén Martínez Elhore**
-- GitHub: [@yourusername](https://github.com/yourusername)
-- LinkedIn: [your-linkedin](https://linkedin.com/in/yourprofile)
-- Portfolio: [your-portfolio.com](https://yourportfolio.com)
+- GitHub: [@rubenelhore](https://github.com/rubenelhore)
+- LinkedIn: [rubenelhore](https://linkedin.com/in/rubenelhore)
+- Portfolio: [rubenelhore.notion.site(https://rubenelhore.notion.site/portfolio)
 
 ---
 
