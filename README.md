@@ -2,7 +2,7 @@
 
 > Intelligent document Q&A system using Retrieval-Augmented Generation
 
-![AI Chatbot Demo](https://via.placeholder.com/800x400?text=Add+Screenshot+Here)
+![AI Chatbot Demo]([https://via.placeholder.com/800x400?text=Add+Screenshot+Here](https://github.com/rubenelhore/AI_chatbot/issues/1#issue-3518986982))
 
 ## 🎯 What it does
 
