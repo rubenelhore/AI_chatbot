@@ -97,7 +97,7 @@ Open http://localhost:5173
 ![Upload](https://i.imgur.com/Rl7BmKe.png)
 
 ### Chat Interface
-![Chat](https://i.imgur.com/a/sBAAyJm.png)
+![Chat](https://i.imgur.com/sBAAyJm.png)
 
 ---
 
@@ -158,7 +158,7 @@ This is a personal learning project, but feedback is welcome! Open an issue or r
 **Rubén Martínez Elhore**
 - GitHub: [@rubenelhore](https://github.com/rubenelhore)
 - LinkedIn: [rubenelhore](https://linkedin.com/in/rubenelhore)
-- Portfolio: [rubenelhore.notion.site(https://rubenelhore.notion.site/portfolio)
+- Portfolio: [rubenelhore.notion.site](https://rubenelhore.notion.site/portfolio)
 
 ---
 
