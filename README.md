@@ -2,7 +2,7 @@
 
 > Intelligent document Q&A system using Retrieval-Augmented Generation
 
-![AI Chatbot Demo](https://imgur.com/3iyzlQD)
+[AI Chatbot Demo](https://imgur.com/3iyzlQD)
 
 ## 🎯 What it does
 
