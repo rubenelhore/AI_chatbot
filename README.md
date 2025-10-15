@@ -8,7 +8,7 @@
 
 Upload documents (PDFs, text files), ask questions in natural language, and get accurate answers with source citations powered by AI.
 
- **Video Demo:** [https://www.loom.com/share/bed2493c3610435f808a22118d6d521a?sid=63662132-863d-494b-8921-efba3740eda6]
+ **Video Demo:** (https://www.loom.com/share/bed2493c3610435f808a22118d6d521a?sid=63662132-863d-494b-8921-efba3740eda6)
 
 ---
 
