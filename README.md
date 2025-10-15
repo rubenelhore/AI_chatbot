@@ -1,15 +1,19 @@
 # 🤖 AI Chatbot with RAG
 
+[![GitHub](https://img.shields.io/badge/GitHub-Repository-blue)](https://github.com/rubenelhore/AI_chatbot)
+[![Loom](https://img.shields.io/badge/Demo-Video-red)](https://www.loom.com/share/bed2493c3610435f808a22118d6d521a)
+
 > Intelligent document Q&A system using Retrieval-Augmented Generation
 
-![AI Chatbot Demo](https://i.imgur.com/3iyzlQD.png)
+> Intelligent document Q&A system using Retrieval-Augmented Generation
+
+🎥 **[Watch 2-min Demo Video](https://www.loom.com/share/bed2493c3610435f808a22118d6d521a?sid=63662132-863d-494b-8921-efba3740eda6)**
 
 ## 🎯 What it does
 
 Upload documents (PDFs, text files), ask questions in natural language, and get accurate answers with source citations powered by AI.
 
- **Video Demo:** (https://www.loom.com/share/bed2493c3610435f808a22118d6d521a?sid=63662132-863d-494b-8921-efba3740eda6)
-
+🎥 **[Watch it in action (2 min)](https://www.loom.com/share/bed2493c3610435f808a22118d6d521a)**
 ---
 
 ## ⚡ Key Features
