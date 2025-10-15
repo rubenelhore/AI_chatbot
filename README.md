@@ -5,8 +5,6 @@
 
 > Intelligent document Q&A system using Retrieval-Augmented Generation
 
-> Intelligent document Q&A system using Retrieval-Augmented Generation
-
 🎥 **[Watch 2-min Demo Video](https://www.loom.com/share/bed2493c3610435f808a22118d6d521a?sid=63662132-863d-494b-8921-efba3740eda6)**
 
 ## 🎯 What it does
